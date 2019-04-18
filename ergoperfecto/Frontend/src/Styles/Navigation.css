@@ -1,0 +1,17 @@
+.header {
+  position: fixed;
+  width: 100vw;
+  height: 54px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
+  display: -webkit-box!important;
+  display: -ms-flexbox!important;
+  display: flex!important;
+  justify-content: center;
+  position: fixed;
+  font-size: 1.875em;
+  font-family: cursive;
+  font-style: italic;
+  color: black;
+  background-color: aqua
+}
