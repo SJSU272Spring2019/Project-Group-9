@@ -1,0 +1,60 @@
+#container {
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    overflow: auto;
+    background: white;
+    width: 180px;
+    display: inline-block;
+    left: 50px;
+    margin-top:150px; 
+    margin-left:50px; 
+    height: 220px;
+   margin-right:40px; 
+}
+#page{
+    margin-left:200px; 
+}
+#personal{
+    font-size: 1.5em;
+    font-family: cursive;
+    font-style: italic;
+    color: black;
+}
+#login-prompt{
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    overflow: auto;
+    background: white;
+    width: 210px;
+    display: inline-block;
+    right: 10px;
+    margin-top:80px; 
+    height: 470px;
+     margin-right:40px;  
+   position: fixed; 
+}
+.but {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: aqua;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin-left:20px; 
+  }
+  
+  .but:hover {background-color: aquamarine}
+  
+  .but:active {
+    background-color: aqua;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }

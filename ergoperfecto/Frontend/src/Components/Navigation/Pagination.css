@@ -1,0 +1,13 @@
+#font {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin-left:50px; 
+    align-items: center
+  }
+  #font.active{background-color: aqua;}
