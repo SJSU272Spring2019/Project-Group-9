@@ -6,14 +6,11 @@ class Header extends Component {
 
   render() {
     return (
- 
-  
       <div className="row">
           <div className="header">
-            ERGOPERFECTO
+
           </div>
       </div>
-    
     );
   }
 }
