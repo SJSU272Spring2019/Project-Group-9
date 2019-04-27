@@ -10,7 +10,8 @@
     /*margin-left:50px;*/
     align-items: center
   }
-  #font.active{color: #4582EC;}
+  #font.active{color: #fff;}
+
   .pages {
     width: 50%;
     margin: 0 auto;
@@ -26,4 +27,9 @@
 
   div.pages  a {
     width: 100px;
+  }
+
+  div.pages  a:hovor {
+    width: 100px;
+    color: #fff;
   }
