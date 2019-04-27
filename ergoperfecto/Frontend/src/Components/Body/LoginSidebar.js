@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import {Card, Button, Row, Col, Form} from 'react-bootstrap';
 
-class CallToAction extends Component {
+class LoginSidebar extends Component {
 
   render() {
     return (
@@ -48,4 +48,4 @@ class CallToAction extends Component {
   }
 }
 
-export default CallToAction;
+export default LoginSidebar;

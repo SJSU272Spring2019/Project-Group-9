@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container,Pagination, Row, Col, Jumbotron, Button} from 'react-bootstrap';
-import CallToAction from './CallToAction.js';
+import LoginSidebar from './LoginSidebar.js';
 import ProductCard from './ProductCard.js';
 
 class Content extends Component {
@@ -54,7 +54,7 @@ class Content extends Component {
           </Jumbotron>
         </Col>
         <Col md={3} lg={3} >
-          <CallToAction />
+          <LoginSidebar />
         </Col>
       </Row>
       </Container>
