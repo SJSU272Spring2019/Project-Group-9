@@ -5,6 +5,7 @@ import {Route} from 'react-router-dom';
 import Header from './Navigation/Header';
 import Login from './Navigation/Login';
 import ProductDisplay from './Navigation/ProductDisplay'
+import Dashboard from './Dashboard/Dashboard.jsx'
 // import '../App.css';
 
 class Main extends Component {
@@ -14,9 +15,12 @@ class Main extends Component {
         <Route path = "/" component = {Header} />
         <Route path = "/productdisplay" component = {ProductDisplay} />
         <Route path = "/login" component = {Login} />
+        <Route path = "/dashboard" component = {Dashboard} />
       </div>
     );
   }
 }
+
+
 
 export default Main;

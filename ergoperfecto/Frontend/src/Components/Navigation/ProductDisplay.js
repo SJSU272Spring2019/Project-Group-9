@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 import '../../Styles/Header.css';
 import {Redirect} from 'react-router';
 class ProductDisplay extends Component {
-  constructor(props){
+    constructor(props){
     super(props);
     super(props);
     this.state = {
