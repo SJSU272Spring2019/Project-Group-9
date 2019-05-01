@@ -33,7 +33,6 @@ class VideoDisplay extends Component {
       this.setState({ currentPage, currentrows, totalPages });
     }
   importAll=(r)=> {
-    let images = {};
     let videos = require('../../video.json');
     let result = []
     for (let obj in videos) {
@@ -59,7 +58,7 @@ class VideoDisplay extends Component {
         {nav}
         <Container fluid>
           <Row>
-            <Col md={9} lg={9}>
+            <Col sm={12} md={9} lg={9}>
             <Jumbotron>
               <div id="page">
                     { currentPage && (
@@ -74,7 +73,7 @@ class VideoDisplay extends Component {
               </Row>
             </Jumbotron>
             </Col>
-            <Col md={3} lg={3} >
+            <Col sm={12} md={3} lg={3} >
               <LoginSidebar />
             </Col>
 

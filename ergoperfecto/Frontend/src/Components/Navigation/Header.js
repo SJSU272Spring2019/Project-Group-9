@@ -17,7 +17,7 @@ class Header extends Component {
           </Nav>
           <Nav>
            <NavDropdown title="My Account" id="basic-nav-dropdown">
-             <NavDropdown.Item href="#action/3.1">
+             <NavDropdown.Item href="/dashboard">
                Dashboard <Badge variant="info">2</Badge>
              </NavDropdown.Item>
              <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
