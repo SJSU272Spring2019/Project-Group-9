@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
-import Content from '../Body/Content';
+
 
 class Header extends Component {
 

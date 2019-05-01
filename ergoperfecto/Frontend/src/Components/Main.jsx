@@ -4,8 +4,8 @@ import {Route} from 'react-router-dom';
 // import SignUp from './Components/SignUp';
 import Header from './Navigation/Header';
 import Login from './Navigation/Login';
-import ProductDisplay from './Navigation/ProductDisplay'
-import VideoDisplay from './Navigation/VideoDisplay'
+import ProductDisplay from './Body/ProductDisplay'
+import VideoDisplay from './Body/VideoDisplay'
 import Dashboard from './Dashboard/Dashboard'
 // import '../App.css';
 

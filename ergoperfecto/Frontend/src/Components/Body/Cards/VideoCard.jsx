@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {Card, Button, Row, Col} from 'react-bootstrap';
-import Ratings from './Cards/Ratings';
+import Ratings from './Ratings';
 
 class VideoCard extends Component {
 
