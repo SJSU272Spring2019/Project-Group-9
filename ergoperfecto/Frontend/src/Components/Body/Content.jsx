@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Container,Pagination, Row, Col, Jumbotron, Button} from 'react-bootstrap';
-import LoginSidebar from './LoginSidebar.js';
-import ProductCard from './ProductCard.js';
+import {Container, Pagination, Row, Col, Jumbotron} from 'react-bootstrap';
+import LoginSidebar from './LoginSidebar';
+import ProductCard from './ProductCard';
 
 class Content extends Component {
 

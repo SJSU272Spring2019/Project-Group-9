@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {Card, Button, Row, Col} from 'react-bootstrap';
-import Ratings from './Cards/Ratings.js';
+import Ratings from './Cards/Ratings';
 
 class ProductCard extends Component {
 
