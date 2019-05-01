@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import { Jumbotron, Row, Col, Container } from 'react-bootstrap';
-
 import Pagination from './Pagination';
-import ProductCard from '../Body/ProductCard';
+import VideoCard from '../Body/VideoCard';
 import LoginSidebar from '../Body/LoginSidebar';
 
-class ProductDisplay extends Component {
+class VideoDisplay extends Component {
   constructor(props){
     super(props);
-    super(props);
+
     this.state = {
       rows:[],
       memberid:"",
@@ -34,13 +33,16 @@ class ProductDisplay extends Component {
       this.setState({ currentPage, currentrows, totalPages });
     }
   importAll=(r)=> {
-    let images = {};
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    return images;
+    let videos = require('../../video.json');
+    let result = []
+    for (let obj in videos) {
+      result.push(obj["src"]);
+    }
+    return videos;
   }
   componentWillMount=()=>{
-    const images = this.importAll(require.context('../../products', false, /\.(png|jpe?g|svg)$/));
-    const values= Object.values(images);
+    const videos = this.importAll();
+    const values= Object.values(videos);
     this.setState({rows:values})
   }
   render() {
@@ -56,7 +58,7 @@ class ProductDisplay extends Component {
         {nav}
         <Container fluid>
           <Row>
-            <Col md={9} lg={9}>
+            <Col sm={12} md={9} lg={9}>
             <Jumbotron>
               <div id="page">
                     { currentPage && (
@@ -65,11 +67,13 @@ class ProductDisplay extends Component {
                       <Pagination totalRecords={totalrows} pageLimit={8} pageNeighbours={1} onPageChanged={this.onPageChanged} />
               </div>
               <Row>
-              {currentrows.map(member=><ProductCard src={member} name="Product Card" />)}
+              {currentrows.map( (member) => {
+                return (<VideoCard title={member["title"]} src={member["src"]}/>)
+              }) }
               </Row>
             </Jumbotron>
             </Col>
-            <Col md={3} lg={3} >
+            <Col sm={12} md={3} lg={3} >
               <LoginSidebar />
             </Col>
 
@@ -80,4 +84,4 @@ class ProductDisplay extends Component {
   }
 }
 
-export default ProductDisplay;
+export default VideoDisplay;

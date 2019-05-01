@@ -38,7 +38,7 @@ class Pagination extends Component {
     super(props);
 
     const { totalRecords = null, pageLimit = 10, pageNeighbours = 0, refresh = false } = props;
-  
+
     this.pageLimit = typeof pageLimit === "number" ? pageLimit : 10;
 
     this.totalRecords = typeof totalRecords === "number" ? totalRecords : 0;
@@ -66,9 +66,9 @@ class Pagination extends Component {
         : 0;
 
     this.totalPages = Math.ceil(this.totalRecords / this.pageLimit);
-    
+
     this.refresh = refresh;
-    
+
     if (this.refresh === true) {
       this.gotoPage(1);
     }
@@ -163,10 +163,11 @@ class Pagination extends Component {
 
     const pages = this.fetchPageNumbers();
 
-    
+
     return (
       <Fragment>
-        <nav aria-label="Listings Pagination">
+        <div className="pages">
+        <nav style={{width: '100%'}} aria-label="Listings Pagination">
           <ul className="pagination">
             {pages.map((page, index) => {
               if (page === LEFT_PAGE)
@@ -174,7 +175,7 @@ class Pagination extends Component {
                   <li key={index} className="page-item">
                     <a
                       className="page-link"
-                      
+
                       aria-label="Previous"
                       onClick={this.handleMoveLeft}
                     >
@@ -189,7 +190,7 @@ class Pagination extends Component {
                   <li key={index} className="page-item">
                     <a
                       className="page-link"
-                      
+
                       aria-label="Next"
                       onClick={this.handleMoveRight}
                     >
@@ -208,7 +209,6 @@ class Pagination extends Component {
                 >
                   <a href
                     className="page-link"
-                    
                     onClick={e => this.handleClick(page, e)}
                   >
                     {page}
@@ -218,6 +218,7 @@ class Pagination extends Component {
             })}
           </ul>
         </nav>
+        </div>
       </Fragment>
     );
   }

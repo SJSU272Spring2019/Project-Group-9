@@ -35,7 +35,7 @@ function handleTopicRequest(topic_name, fname){
             })
             break;
 
-    
+
         }
     })
 };
