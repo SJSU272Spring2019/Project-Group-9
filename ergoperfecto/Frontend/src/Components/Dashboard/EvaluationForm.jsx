@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
+
 import {Row, Col, Form, Button, Table, Modal} from 'react-bootstrap';
 import Question from './Question.jsx';
 
 class EvaluationForm extends Component {
   constructor(props, context) {
     super(props, context);
+
     this.state = {
       data: [],
       currentQuestion: 0,
@@ -64,7 +66,6 @@ class EvaluationForm extends Component {
     }
   }
 
-
   nextQuestion=()=> {
     let id = this.state.currentQuestion
     if(!this.isLastQuestion()) {
@@ -95,9 +96,6 @@ class EvaluationForm extends Component {
     }
   }
 
-
-
-
   getCurrentQuestion = () => {
     let output = this.state.data[this.state.currentCategory].questions[this.state.currentQuestion];
     // Reminder: possible point of failure if schema doesnt match json
@@ -111,9 +109,6 @@ class EvaluationForm extends Component {
     return output;
   }
 
-
-
-
   render() {
     const question = this.getCurrentQuestion();
     const category = this.getCurrentCategory();
@@ -124,7 +119,7 @@ class EvaluationForm extends Component {
     } else {
       previous = <Button variant="primary" type="submit" disabled>Previous</Button>
     }
-    
+
     if (!this.isLastQuestion()) {
       next =  <Button variant="primary" type="submit" onClick={this.nextQuestion}>Next</Button>
     } else {
@@ -132,7 +127,7 @@ class EvaluationForm extends Component {
     }
 
     if (this.isLastCategory() && this.isLastQuestion()) {
-      next =  <Button variant="success" type="submit" onClick={this.nextCategory}>Submit</Button>
+      next =  <Button variant="success" type="submit" href="/dashboard">Submit</Button>
     }
 
     console.log(question);

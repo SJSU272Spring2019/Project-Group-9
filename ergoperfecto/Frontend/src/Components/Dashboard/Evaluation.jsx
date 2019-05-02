@@ -38,10 +38,10 @@ class Evaluation extends Component {
           <EvaluationForm />
          </Modal.Body>
        </Modal>
-
+       <div style={{margin: "20px"}}>
         <h3>Evaluations</h3>
         <Row>
-        <Table as={Col} md={6} striped bordered hover>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Date</th>
@@ -49,7 +49,7 @@ class Evaluation extends Component {
           </thead>
           <tbody>
             <tr>
-              <td md={4}>dd/mm/yyyy</td>
+              <td >dd/mm/yyyy</td>
               <td><Button variant="info" type="submit">View</Button></td>
             </tr>
           </tbody>
@@ -58,6 +58,7 @@ class Evaluation extends Component {
         <Row>
           <Button variant="primary" type="submit" onClick={this.handleShow}>New Evaluation</Button>
         </Row>
+        </div>
       </div>
     );
   }

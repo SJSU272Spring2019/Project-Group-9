@@ -54,10 +54,10 @@ class Dashboard extends Component {
           <Col xs={12} md={2} lg={2}>
               <ListGroup>
                 <ListGroup.Item >
-                  <a href="#" onClick={() => this.handleLink(0)}>Profile</a>
+                  <a href="#profile" onClick={() => this.handleLink(0)}>Profile</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <a href="#" onClick={() => this.handleLink(1)}>Evaluation</a>
+                  <a href="#evaluation" onClick={() => this.handleLink(1)}>Evaluation</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <a href="#">Data</a>
