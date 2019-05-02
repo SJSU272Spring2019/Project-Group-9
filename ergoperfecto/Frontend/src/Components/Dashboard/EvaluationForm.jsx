@@ -9,6 +9,7 @@ class EvaluationForm extends Component {
 
     this.state = {
       data: [],
+      answers: [],
       currentQuestion: 0,
       currentCategory: 0
     };
