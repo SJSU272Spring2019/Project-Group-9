@@ -1,10 +1,6 @@
 let call_kafka = require("../utils/kafka_common")
 
 module.exports = {
-    loginGet: (req, res) => {
-        console.log('inside login')
-        return res.status(200)
-    },
 
     loginPost: (req, res) => {
         call_kafka(req, res,'auth',{payload: req.body,type:"loginPost",user:null})

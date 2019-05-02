@@ -23,8 +23,8 @@ function handleTopicRequest(topic_name,fname){
                     messages:JSON.stringify({
                         correlationId:data.correlationId,
                         data : res,
-                        error : err,
-                        quiz  }),
+                        error : err
+                    }),
                     partition : 0
                 }
             ];

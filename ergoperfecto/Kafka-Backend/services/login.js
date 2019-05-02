@@ -15,17 +15,21 @@ let registerPost = (msg, callback) => {
             password : Joi.string().required(),
             city : Joi.string().allow(null,''),
             state : Joi.string().allow(null,''),
-            zip : Joi.string().allow(null,'')
+            zip : Joi.string().allow(null,''),
+            phone_number :Joi.string().allow(null,''),
+            profile_pic : Joi.string().allow(null,''),
         });
         try {
             let firstName =msg.firstName;
             let lastName = msg.lastName;
             let email =msg.email;
             let password =msg.password;
-            let city =msg.city;
-            let state = msg.state
-            let zip = msg.zip
-            const user = { firstName: firstName, lastName: lastName, email:email, password:password,city:city,state:state,zip:zip};
+            let city =msg.city || null;
+            let state = msg.state || null;
+            let zip = msg.zip || null;
+            let phone_number = msg.phone_number || null;
+            let profile_pic = msg.profile_pic || null;
+            const user = { firstName: firstName, lastName: lastName, email:email, password:password,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic};
 
             Joi.validate(user, schema, (err, value) => {
                 if (err) {
@@ -43,7 +47,7 @@ let registerPost = (msg, callback) => {
                             if(user_obj !== null){
                                 callback({"success":false,"message":"User with same email already present"}, null)
                             }
-                            let db_obj = new User({ firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip})
+                            let db_obj = new User({ firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic})
                             db_obj.save().then(result => {
                                 console.log("New User registered successfully\n",result);
                                 callback(null,{"success":true,"message":"Registration successfull!"})

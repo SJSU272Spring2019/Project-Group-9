@@ -2,7 +2,7 @@
 const passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
-var Users = require('../src/models/UserSchema');
+var User = require('../models/userSchema');
 
 
 // Setup work and export for the JWT passport strategy
@@ -12,7 +12,7 @@ var opts = {
 };
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     console.log("JWT Payload:", jwt_payload);
-    Users.findOne({email:jwt_payload.email}, function(err, user) {
+    User.findOne({email:jwt_payload.email}, function(err, user) {
         if (err) {
             return done(err, false);
         }

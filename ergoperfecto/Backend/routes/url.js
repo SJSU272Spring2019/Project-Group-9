@@ -36,7 +36,6 @@ const upload = multer({
 const loginController = require('../controller/loginController');
 
 module.exports = (router) => {
-    router.get('/login', loginController.loginGet)
     router.post('/login', loginController.loginPost)
     router.get('/logout', loginController.logout)
     router.post('/register', loginController.registerPost)
