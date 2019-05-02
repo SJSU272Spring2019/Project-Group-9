@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var conn = require('./connection');
 
-var TIMEOUT=100000; //time to wait for response in ms
+var TIMEOUT=8000; //time to wait for response in ms
 var self;
 
 exports = module.exports =  KafkaRPC;
@@ -41,22 +41,23 @@ KafkaRPC.prototype.makeRequest = function(topic_name, content, callback){
 
     //make sure we have a response topic
     self.setupResponseQueue(self.producer,topic_name,function(){
-        console.log('In kafkarpc setupResponseQueue response');
+        console.log('in response');
         //put the request on a topic
 
         var payloads = [
             { topic: topic_name, messages: JSON.stringify({
                 correlationId:correlationId,
-                replyTo:'response_topics',
+                replyTo:'response_topic',
                 data:content}),
                 partition:0}
         ];
-        console.log("Is self.producer ready? ", self.producer.ready);
+        // console.log('in response1');
+        console.log(self.producer.ready);
         self.producer.send(payloads, function(err, data){
-            console.log('In producer send response');
+            // console.log('in response2');
             if(err)
                 console.log(err);
-            console.log("producer send response data:", data);
+            console.log(data);
         });
     });
 };
@@ -66,15 +67,14 @@ KafkaRPC.prototype.setupResponseQueue = function(producer,topic_name, next){
     //don't mess around if we have a queue
     if(this.response_queue) return next();
 
+    console.log('1');
+
     self = this;
 
     //subscribe to messages
-    var consumer = self.connection.getConsumer('response_topics');
-    consumer.on('error', function (err) {
-        console.log("Kafka Error: Response Consumer - " + err);
-    });
+    var consumer = self.connection.getConsumer('response_topic');
     consumer.on('message', function (message) {
-        console.log('KafkaRPC response msg received');
+        console.log('msg received');
         var data = JSON.parse(message.value);
         //get the correlationId
         var correlationId = data.correlationId;
@@ -87,10 +87,10 @@ KafkaRPC.prototype.setupResponseQueue = function(producer,topic_name, next){
             //delete the entry from hash
             delete self.requests[correlationId];
             //callback, no err
-            entry.callback(null, data.data);
+            entry.callback(data.error, data.data);
         }
     });
     self.response_queue = true;
-    console.log('returning next from kafkarpc.js');
+    console.log('returning next');
     return next();
 };

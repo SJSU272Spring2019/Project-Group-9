@@ -18,15 +18,6 @@ app.use(passport.initialize());
 // Bring in defined Passport Strategy
 require('./config/passport').passport;
 
-// Set up Database connection
-
-const mongoose=require('mongoose')
-mongoose.connect('mongodb+srv://user:user@cluster0-si4ql.mongodb.net/test?retryWrites=true',{ useNewUrlParser: true , poolSize: 10 }, function(err) {
-  if (err) throw err;
-  else {
-      console.log('Successfully connected to MongoDB');
-  }
-})
 //server configuration
 var basePath = '/ergoperfecto';
 
