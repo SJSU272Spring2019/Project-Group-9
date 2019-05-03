@@ -6,7 +6,11 @@ import Evaluation from './Evaluation';
 import '../../Styles/Dashboard.css';
 
 class Dashboard extends Component {
-
+  // Product recommendations
+  // video recomendations
+  // profile
+  // evaluation
+  // log/physical therapy sessions
   constructor(props) {
     super(props);
     this.state = {
@@ -56,6 +60,12 @@ class Dashboard extends Component {
         <Row>
           <Col xs={12} md={2} lg={2}>
               <ListGroup>
+                <ListGroup.Item>
+                  <a href="#">Product Recommendations</a>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <a href="#">Video Recommendations</a>
+                </ListGroup.Item>
                 <ListGroup.Item >
                   <a href="#profile" onClick={() => this.handleLink(0)}>Profile</a>
                 </ListGroup.Item>
@@ -63,7 +73,7 @@ class Dashboard extends Component {
                   <a href="#evaluation" onClick={() => this.handleLink(1)}>Evaluation</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <a href="#">Data</a>
+                  <a href="#">Physical Therapy</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <a href="#evaluation" onClick={() => this.handleLink(2)}>PhysioTherapy</a>

@@ -1,0 +1,5 @@
+- Get profile data from backend
+	- add update functionality
+- Get questions from backend in JSON (evaluation)
+- Send question answers to backend
+	- [{Section ID, Question ID, Answer}]

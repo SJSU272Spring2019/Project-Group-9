@@ -1,67 +1,57 @@
-import React, {Component} from 'react';
-import {Form, Row, Col, InputGroup, Button} from 'react-bootstrap';
-import axios from 'axios';
+import React, {Component} from 'react'
+import {Form, Row, Col, InputGroup, Button} from 'react-bootstrap'
+import axios from 'axios'
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      validated: false,
-      firstName: "", //required
-      lastName: "", //Required
-      email: "",  //required
-      password: "",  //required
-      city: "",
-      state: "",
-      zip: "",
-
-    };
-  }
-
-  onChange = (e) => {
-     this.setState({ [e.target.name]: e.target.value });
-   }
-
-  handleSubmit(event) {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    constructor(props) {
+      super(props)
+      this.state = {
+        validated: false,
+        firstName: "", //required
+        lastName: "", //Required
+        email: "",  //required
+        password: "",  //required
+        city: "",
+        state: "",
+        zip: "",
+      }
     }
 
-    const formData = {
-      firstName: this.state.firstName, //required
-      lastName: this.state.lastName, //Required
-      email: this.state.email,  //required
-      password: this.state.password,  //required
+    onChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value })
     }
 
-    axios.post("http://localhost:3001/register", formData)
-     .then((res) => {
-       console.log(res);
-     })
-     .catch(err => console.log(err))
+    clearForm = () => {
+      document.getElementById("profileForm").reset()
+    }
 
-    this.setState({ validated: true });
-
-  }
+    handleSubmit(event) {
+      event.preventDefault()
+      const formData = {
+        firstName: this.state.firstName, //required
+        lastName: this.state.lastName, //Required
+        email: this.state.email,  //required
+        password: this.state.password,  //required
+      }
+      axios.post("http://10.251.153.191:3001/register", formData)
+        .then((res) => {
+          console.log(res.data)
+          this.clearForm()
+        }).catch(err => console.log("error!", err.response.data))
+      this.setState({ validated: true })
+    }
 
   render() {
-    const { validated } = this.state;
+    const { validated } = this.state
     return (
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={e => this.handleSubmit(e)}
-      >
+      <Form noValidate validated={validated} id="profileForm" onSubmit={e => this.handleSubmit(e)} >
         <Form.Row>
           <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Label>First name</Form.Label>
             <Form.Control
               required
               type="text"
-              name="firstname"
+              name="firstName"
               placeholder="First name"
               defaultValue=""
               onChange={this.onChange}
@@ -73,7 +63,7 @@ class Profile extends Component {
             <Form.Control
               required
               type="text"
-              name="lastname"
+              name="lastName"
               placeholder="Last name"
               defaultValue=""
               onChange={this.onChange}
@@ -114,11 +104,10 @@ class Profile extends Component {
             </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
-
         <Button type="submit">Update</Button>
       </Form>
-    );
+    )
   }
 }
 
-export default Profile;
+export default Profile
