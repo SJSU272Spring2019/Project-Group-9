@@ -1,63 +1,48 @@
-var connection =  new require('./kafka/Connection');
+var connection =  require('./kafka/Connection');
+let db_connection = require('./database.js');
 
-//topics file
-var producttopics = require('./services/producttopics.js');
+const loginService = require("./services/login")
+const profileService = require("./services/profile")
 
-
-// Set up Database connection
-const mongoose=require('mongoose')
-mongoose.connect('mongodb+srv://user:user@cluster0-si4ql.mongodb.net/test?retryWrites=true',{ useNewUrlParser: true , poolSize: 10 }, function(err) {
-  if (err) throw err;
-  else {
-      console.log('Successfully connected to MongoDB');
-  }
-})
-console.log('Kafka server is running ');
-
-function handleTopicRequest(topic_name, fname){
-    console.log("topic_name:", topic_name)
+function handleTopicRequest(topic_name,fname){
+    //var topic_name = 'root_topic';
     var consumer = connection.getConsumer(topic_name);
     var producer = connection.getProducer();
-    consumer.on('error', function (err) {
-        console.log("Kafka Error: Consumer - " + err);
-    });
+    console.log('server is running ');
     consumer.on('message', function (message) {
-        console.log('message received for ' + topic_name +" ", fname);
-        console.log(JSON.stringify(message.value));
-        var data = JSON.parse(message.value);
+        var data = JSON.parse(message.value) 
 
-        switch (topic_name) {
-
-        case 'product_topics' :
-        producttopics.productService(data.data, function(err, res){
-                response(data, res, producer);
-                return;
-            })
-            break;
-
-
+        let file = null
+        if ('file' in data.data){
+            file = data.data.file
         }
-    })
-};
-
-function response(data, res, producer) {
-    console.log('after handle', res);
-    var payloads = [
-        { topic: data.replyTo,
-            messages:JSON.stringify({
-                correlationId:data.correlationId,
-                data : res
-            }),
-            partition : 0
+        var request_data = {
+            msg : data.data.payload, 
+            type : data.data.type, 
+            user : data.data.user,
+            file : file,
         }
-    ];
-    producer.send(payloads, function(err, data){
-        console.log('producer send', data);
+        fname.handle_request(request_data, function(err,res){
+            console.log('after handle',err,res);
+            var payloads = [
+                { topic: data.replyTo,
+                    messages:JSON.stringify({
+                        correlationId:data.correlationId,
+                        data : res,
+                        error : err
+                    }),
+                    partition : 0
+                }
+            ];
+            producer.send(payloads, function(err, data){
+                console.log(data);
+            });
+            return;
+        });
+        
     });
-    return;
 }
 
-// Add your TOPICs here
-//first argument is topic name
-//second argument is a function that will handle this topic request
-handleTopicRequest("product_topics",producttopics);
+
+handleTopicRequest("auth",loginService)
+handleTopicRequest("user",profileService)
