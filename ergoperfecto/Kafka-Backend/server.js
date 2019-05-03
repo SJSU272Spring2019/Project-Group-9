@@ -1,7 +1,8 @@
 var connection =  require('./kafka/Connection');
 let db_connection = require('./database.js');
 
-var loginService = require("./services/login")
+const loginService = require("./services/login")
+const profileService = require("./services/profile")
 
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
@@ -11,10 +12,15 @@ function handleTopicRequest(topic_name,fname){
     consumer.on('message', function (message) {
         var data = JSON.parse(message.value) 
 
+        let file = null
+        if ('file' in data.data){
+            file = data.data.file
+        }
         var request_data = {
             msg : data.data.payload, 
             type : data.data.type, 
             user : data.data.user,
+            file : file,
         }
         fname.handle_request(request_data, function(err,res){
             console.log('after handle',err,res);
@@ -39,3 +45,4 @@ function handleTopicRequest(topic_name,fname){
 
 
 handleTopicRequest("auth",loginService)
+handleTopicRequest("user",profileService)

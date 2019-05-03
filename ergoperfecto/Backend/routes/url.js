@@ -1,6 +1,8 @@
 const uuidv4 = require('uuid/v4')
 const multer = require('multer');
-let passport = require('passport');
+// let passport = require('passport');
+const verifyJWTToken = require("../config/passport")
+
 const storage  = multer.diskStorage({
     destination : function(req,file,cb){
         cb(null,'./uploads/');
@@ -13,9 +15,9 @@ const storage  = multer.diskStorage({
     }
 })
 
-const s = {
-    session : false
-}
+// const s = {
+//     session : false
+// }
 
 const imageFiter = (req,file,cb) => {
     if(file.mimetype === "image/jpeg" || file.mimetype === "image/png"){
@@ -34,10 +36,19 @@ const upload = multer({
 
 
 const loginController = require('../controller/loginController');
+const profileController = require("../controller/profileController");
 
 module.exports = (router) => {
+    /* login */
     router.post('/login', loginController.loginPost)
     router.get('/logout', loginController.logout)
     router.post('/register', loginController.registerPost)
+    /* login */
+
+    /* profile */
+    router.get('/profile', verifyJWTToken,profileController.profileGet)
+    router.post('/profile', verifyJWTToken,upload.single("profile_pic"),profileController.profilePost)
+    /* profile */
+
     return router;
 }
