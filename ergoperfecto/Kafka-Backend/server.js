@@ -3,6 +3,7 @@ let db_connection = require('./database.js');
 
 const loginService = require("./services/login")
 const profileService = require("./services/profile")
+const evaluationService = require("./services/evaluation")
 
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
@@ -46,3 +47,4 @@ function handleTopicRequest(topic_name,fname){
 
 handleTopicRequest("auth",loginService)
 handleTopicRequest("user",profileService)
+handleTopicRequest("eval",evaluationService)
