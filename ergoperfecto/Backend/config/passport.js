@@ -33,8 +33,9 @@ const jwt = require('jsonwebtoken');
 
 let verifyJWTToken = (req, res, next) => {
     const token = req.header('token');
+    console.log("-----token-----\n",token);
     if (!token){
-        console.log("User not logged, Access Denied.")
+        console.log("--------------User not logged, Access Denied.-----------\n")
         return res.status(401).json({"message":"Access Denied"});
     }
     try {
@@ -43,7 +44,7 @@ let verifyJWTToken = (req, res, next) => {
         next();
     }
     catch(jwt_error){
-        console.log("Invalid Token, Access Denied.")
+        console.log("---------------Invalid Token, Access Denied.-----------------\n")
         res.status(400).send("Invalid token.")   
     }
 }
