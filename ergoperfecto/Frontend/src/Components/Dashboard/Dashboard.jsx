@@ -54,7 +54,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} md={2} lg={2}>
+          <Col xs={12} sm={12} md={12} lg={4} xl={3}>
               <ListGroup>
                 <ListGroup.Item>
                   <a href="#">Product Recommendations</a>
@@ -73,7 +73,8 @@ class Dashboard extends Component {
                 </ListGroup.Item>
               </ListGroup>
           </Col>
-          <Col sm={12} md={10} lg={10}>
+          <br />
+          <Col sm={12} md={12} lg={8} xl={9}>
             <div class="dashboard-content">
               {page}
             </div>
