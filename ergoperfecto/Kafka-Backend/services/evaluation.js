@@ -48,7 +48,7 @@ function handle_request(data,callback){
     type = data.type
     user = data.user
     // file = data.file
-    
+
     switch (type) {
 		case 'questionsGet':
             questionsGet(user,msg,callback);

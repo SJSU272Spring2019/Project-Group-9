@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-
 import {Row, Col, Form, Button, Table, Modal} from 'react-bootstrap';
+import axios from 'axios'
 import Question from './Question.jsx';
 
 class EvaluationForm extends Component {
@@ -130,10 +130,16 @@ class EvaluationForm extends Component {
     return output;
   }
 
-  handleSubmit = () => {
-
+  handleSubmit =  async () => {
+    let formData = this.state.answers
+    axios.post("http://localhost:3001/answers",{headers: {
+      token: localStorage.getItem("token")
+    }}, formData)
+      .then((res) => {
+        console.log(res.data)
+      }).catch(err => console.log("error!", err.response.data))
+    this.setState({ validated: true })
   }
-
 
   handleChecked () {
     let c = !this.state.isChecked
