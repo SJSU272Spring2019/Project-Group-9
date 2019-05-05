@@ -8,8 +8,8 @@ class LoginSidebar extends Component {
       super(props);
       this.state = {
         signUp: 1,
-        error: true,
-        errorMessage: "Sign Up Failed",
+        error: false,
+        errorMessage: "",
         firstName: "", //required
         lastName: "", //Required
         email: "",  //required
@@ -37,8 +37,7 @@ class LoginSidebar extends Component {
     }
 
     onChange = (e) => {
-       console.log(e.target.name, e.target.value)
-       this.setState({ [e.target.name]: e.target.value });
+       this.setState({ [e.target.name]: e.target.value, error: false });
     }
 
     clearForm = () => {
@@ -67,7 +66,7 @@ class LoginSidebar extends Component {
        }
        endpoint = "login"
      }
-     axios.post(`http://10.251.153.191:3001/${endpoint}`, formData)
+     axios.post(`http://localhost:3001/${endpoint}`, formData)
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("token",response.data.token);
@@ -77,14 +76,19 @@ class LoginSidebar extends Component {
         this.clearForm();
       })
       .catch(err => {
-
-        console.log("error!", err.response.message)
+        console.log("error!", err.data.message)
+        this.setState({
+          error: true,
+          errorMessage: err.data.message
+        })
       })
     // this.setState({ validated: true });
    }
 
   signUpForm = () => {
     return (
+
+
       <Form id="registerForm" onSubmit={e => this.handleSubmit(e)}>
       <Form.Group>
         <Form.Label>First Name</Form.Label>
@@ -150,6 +154,10 @@ class LoginSidebar extends Component {
     </Form>);
   }
 
+  renderErrorMessage=()=> {
+    return(  <AlertMessage message={this.state.errorMessage} />)
+  }
+
 
   render() {
     let myForm;
@@ -158,10 +166,12 @@ class LoginSidebar extends Component {
       myForm = this.signUpForm();
     else
       myForm = this.loginForm();
-
+    if (this.state.error)
+      alert = this.renderErrorMessage();
     return (
       <>
-      <AlertMessage message={this.state.errorMessage} />
+
+      {alert}
       <Card style={{ width: '20rem' }}>
         <Card.Body>
           <Card.Title>Want personalised recommendations?</Card.Title>

@@ -37,7 +37,7 @@ let profilePost = (user,msg,file,callback) => {
         phone_number :Joi.string().allow(null,''),
         profile_pic : Joi.string().allow(null,''),
     });
-    
+
     try {
         let data = {}
         data["firstName"] = msg.firstName
@@ -55,7 +55,7 @@ let profilePost = (user,msg,file,callback) => {
         else{
             data['profile_pic']= "https://visualpharm.com/assets/30/User-595b40b85ba036ed117da56f.svg"
         }
-        
+
         Joi.validate(data, schema, (joi_err, value) => {
             if (joi_err) {
                 console.log(joi_err)
@@ -64,7 +64,7 @@ let profilePost = (user,msg,file,callback) => {
             else{
                 User.findOneAndUpdate(
                     { email: user.email },
-                    data, 
+                    data,
                     function(db_err, result) {
                     if (db_err){
                         console.log("Error",db_err);
@@ -92,7 +92,7 @@ function handle_request(data,callback){
     type = data.type
     user = data.user
     file = data.file
-    
+
     switch (type) {
 		case 'profileGet':
         profileGet(user,msg,callback);

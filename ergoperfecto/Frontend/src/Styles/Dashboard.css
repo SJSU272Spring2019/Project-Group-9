@@ -1,8 +1,10 @@
 .sidebar {
-  width: 100%;
+  position: fixed;
+
   height: 100%;
-  background-color: #3d4857;
+  background-color: #e3e3e3;
 }
+
 
 .dashboard-content {
   background-color: #3d4857;

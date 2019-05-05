@@ -74,7 +74,7 @@ class Dashboard extends Component {
               </ListGroup>
           </Col>
           <Col sm={12} md={10} lg={10}>
-            <div class="dashboard-content">
+            <div >
               {page}
             </div>
           </Col>

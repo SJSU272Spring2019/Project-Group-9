@@ -53,6 +53,7 @@ class ProductDisplay extends Component {
     if (totalrows === 0) return null;
     return (
       <div>
+      <br />
         {nav}
         <Container fluid>
           <Row>
