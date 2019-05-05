@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import {Row, Col, Form, Button, Table, Modal, Spinner} from 'react-bootstrap';
 import EvaluationForm from './EvaluationForm';
+import API from '../../api/API'
 import axios from 'axios'
 
 class Evaluation extends Component {
@@ -25,7 +26,8 @@ class Evaluation extends Component {
 
   componentWillMount=()=>{
     const token = localStorage.getItem('token');
-    axios.get("http://localhost:3001/questions", {
+    const url = API.baseURL + API.routes.questions
+    axios.get(url, {
         headers: {
           token: localStorage.getItem("token")
         }
