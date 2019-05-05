@@ -44,7 +44,8 @@ class Evaluation extends Component {
     let evalForm;
     let buttons;
     if (!this.state.loading) {
-      buttons = this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.category}</Button>)
+      console.log(this.state.data);
+      buttons = this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.name}</Button>)
       const c = this.state.selectedCategory;
       if (c != -1) {
         evalForm = <EvaluationForm category={c} />
