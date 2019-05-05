@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Row, Col, Form, Button, Table, Modal} from 'react-bootstrap';
 import Question from './Question.jsx';
 
-class EvaluationForm extends Component {
+class EvaluationSheet extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -11,7 +11,7 @@ class EvaluationForm extends Component {
       data: [],
       answers: [],
       currentQuestion: 0,
-      currentCategory: this.props.category
+      currentCategory: 0
     };
 
     this.handleShow = () => {
@@ -29,6 +29,7 @@ class EvaluationForm extends Component {
     this.setState( {
       data: questions,
       currentQuestion: 0,
+      currentCategory: 0
     });
   }
 
@@ -109,10 +110,6 @@ class EvaluationForm extends Component {
     return output;
   }
 
-  handleSubmit = () => {
-
-  }
-
   render() {
     const question = this.getCurrentQuestion();
     const category = this.getCurrentCategory();
@@ -127,13 +124,13 @@ class EvaluationForm extends Component {
     if (!this.isLastQuestion()) {
       next =  <Button variant="primary" type="submit" onClick={this.nextQuestion}>Next</Button>
     } else {
-      next =  <Button variant="primary" type="submit" onClick={this.handleSubmit}>Next Category</Button>
+      next =  <Button variant="primary" type="submit" onClick={this.nextCategory}>Next Category</Button>
     }
-    {//
-    // if (this.isLastCategory() && this.isLastQuestion()) {
-    //   next =  <Button variant="success" type="submit" href="/dashboard">Submit</Button>
-    // }
+
+    if (this.isLastCategory() && this.isLastQuestion()) {
+      next =  <Button variant="success" type="submit" href="/dashboard">Submit</Button>
     }
+
     console.log(question);
     return (
       <div style={{padding: "5px;"}}>
@@ -174,4 +171,4 @@ class EvaluationForm extends Component {
   }
 }
 
-export default EvaluationForm;
+export default EvaluationSheet;
