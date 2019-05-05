@@ -48,7 +48,7 @@ class Evaluation extends Component {
       buttons = this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.name}</Button>)
       const c = this.state.selectedCategory;
       if (c != -1) {
-        evalForm = <EvaluationForm category={c} />
+        evalForm = <EvaluationForm data={this.state.data} category={this.state.selectedCategory} />
       }
     } else {
       buttons = <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>;

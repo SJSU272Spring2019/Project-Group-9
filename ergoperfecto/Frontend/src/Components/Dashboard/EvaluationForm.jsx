@@ -6,13 +6,16 @@ import Question from './Question.jsx';
 class EvaluationForm extends Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
-      data: [],
-      answers: [],
+      isChecked: false,
+      data: this.props.data,
+      answers: {data:[]},
       currentQuestion: 0,
-      currentCategory: this.props.category
+      currentCategory: this.props.category,
+
     };
+
+    this.handleChecked = this.handleChecked.bind(this);
 
     this.handleShow = () => {
       this.setState({ show: true });
@@ -23,19 +26,20 @@ class EvaluationForm extends Component {
     };
   }
 
+
   componentWillMount=()=>{
-    const questions = this.importAll();
-    console.log(questions);
+    // const questions = this.importAll();
+    // console.log(questions);
     this.setState( {
-      data: questions,
       currentQuestion: 0,
+
     });
   }
 
-  importAll=(r)=> {
-    let questions = require('../../questions.json');
-    return questions;
-  }
+  // importAll=(r)=> {
+  //   let questions = require('../../questions.json');
+  //   return questions;
+  // }
 
   isLastQuestion=()=> {
     let categoryId = this.state.currentCategory
@@ -61,18 +65,35 @@ class EvaluationForm extends Component {
     if(!this.isFirstQuestion()) {
       id = id - 1;
       this.setState({
-        currentQuestion: id
+        currentQuestion: id,
+        isChecked: this.state.answers.data[id].answer
       })
     }
   }
 
   nextQuestion=()=> {
+    // section id
+    let sid = this.state.data[this.state.currentCategory].id;
+    // question id
+    let qid = this.state.data[this.state.currentCategory].questions[this.state.currentQuestion].id;
+    // question & answer
+    let qa = {sectionId: sid, questionId: qid, answer: this.state.isChecked}
+    // answers.data
+    let d = this.state.answers.data
+    d.push(qa)
+    this.setState({
+      answers: {data: d},
+      isChecked: false
+    })
+    // Forward Traversal of Questions List
     let id = this.state.currentQuestion
     if(!this.isLastQuestion()) {
       id = id + 1
        this.setState({
-         currentQuestion: id
+         currentQuestion: id,
+         isChecked: false
        })
+       console.log(this.state.isChecked);
     }
   }
 
@@ -97,13 +118,13 @@ class EvaluationForm extends Component {
   }
 
   getCurrentQuestion = () => {
-    let output = this.state.data[this.state.currentCategory].questions[this.state.currentQuestion];
+    let output = this.state.data[this.state.currentCategory].questions[this.state.currentQuestion].title;
     // Reminder: possible point of failure if schema doesnt match json
-    return output["q"];
+    return output;
   }
 
   getCurrentCategory = () => {
-    let output = this.state.data[this.state.currentCategory]["category"];
+    let output = this.state.data[this.state.currentCategory]["name"];
     console.log(output);
     // Reminder: possible point of failure if schema doesnt match json
     return output;
@@ -111,6 +132,13 @@ class EvaluationForm extends Component {
 
   handleSubmit = () => {
 
+  }
+
+
+  handleChecked () {
+    let c = !this.state.isChecked
+    console.log(c);
+    this.setState({isChecked: c});
   }
 
   render() {
@@ -125,37 +153,32 @@ class EvaluationForm extends Component {
     }
 
     if (!this.isLastQuestion()) {
-      next =  <Button variant="primary" type="submit" onClick={this.nextQuestion}>Next</Button>
+      next =  <Button variant="primary"   onClick={this.nextQuestion}>Next</Button>
     } else {
-      next =  <Button variant="primary" type="submit" onClick={this.handleSubmit}>Next Category</Button>
+      next =  <Button variant="primary" type="submit" onClick={this.handleSubmit}>Submit</Button>
     }
     {//
     // if (this.isLastCategory() && this.isLastQuestion()) {
     //   next =  <Button variant="success" type="submit" href="/dashboard">Submit</Button>
     // }
     }
-    console.log(question);
+    let checkBox;
+    if (this.state.isChecked) {
+      checkBox = <Form.Check label="Yes" name="check" id="formHorizontalRadios1" checked={true} onClick={ this.handleChecked } />;
+    } else {
+      checkBox = <Form.Check label="Yes" name="check" id="formHorizontalRadios1" checked={false} onClick={ this.handleChecked } />
+    }
     return (
-      <div style={{padding: "5px;"}}>
+
+      <div style={{padding: "5px"}}>
         <Form>
         <fieldset>
            <Form.Group as={Row}>
            <Col lg={12}>
-             <Form.Label as="legend">
+             <Form.Label as="Col">
               <Question category={category} question={question} />
              </Form.Label>
-               <Form.Check
-                 type="radio"
-                 label="Yes"
-                 name="formHorizontalRadios"
-                 id="formHorizontalRadios1"
-               />
-               <Form.Check
-                 type="radio"
-                 label="No"
-                 name="formHorizontalRadios"
-                 id="formHorizontalRadios2"
-               />
+               {checkBox}
              </Col>
            </Form.Group>
          </fieldset>
