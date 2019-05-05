@@ -37,6 +37,7 @@ const upload = multer({
 
 const loginController = require('../controller/loginController');
 const profileController = require("../controller/profileController");
+const evaluationController = require("../controller/evaluationController");
 
 module.exports = (router) => {
     /* login */
@@ -49,6 +50,11 @@ module.exports = (router) => {
     router.get('/profile', verifyJWTToken,profileController.profileGet)
     router.post('/profile', verifyJWTToken,upload.single("profile_pic"),profileController.profilePost)
     /* profile */
+
+    /* evaluation */
+    router.get('/questions', verifyJWTToken,evaluationController.questionsGet)
+    router.post('/answers', verifyJWTToken,evaluationController.saveAnswers)
+    /* evaluation */
 
     return router;
 }
