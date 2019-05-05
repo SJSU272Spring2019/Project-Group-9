@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
-import {Row, Col, Form, Button, Table, Modal} from 'react-bootstrap';
+import {Row, Col, Form, Button, Table, Modal, Spinner} from 'react-bootstrap';
 import EvaluationForm from './EvaluationForm';
+import axios from 'axios'
 
 class Evaluation extends Component {
   constructor(props, context) {
@@ -9,6 +10,7 @@ class Evaluation extends Component {
 
     this.state = {
       show: false,
+      loading: true,
       selectedCategory: -1
     };
 
@@ -22,26 +24,35 @@ class Evaluation extends Component {
   }
 
   componentWillMount=()=>{
-    const questions = this.importAll();
-    console.log(questions);
-    this.setState( {
-      data: questions,
-      selectedCategory: -1
-    });
+    const token = localStorage.getItem('token');
+    axios.get("http://localhost:3001/questions", {
+        headers: {
+          token: localStorage.getItem("token")
+        }
+    }).then((res) => {
+        //This works
+        console.log(res.data)
+        this.setState({
+          data: res.data.data,
+          selectedCategory: -1,
+          loading: false
+        })
+      }).catch(err => console.log("error!", err))
   }
-
-  importAll=(r)=> {
-    let questions = require('../../questions.json');
-    return questions;
-  }
-
 
   render() {
-    var evalForm;
-    const c = this.state.selectedCategory;
-    if (c != -1) {
-      evalForm = <EvaluationForm category={c} />
+    let evalForm;
+    let buttons;
+    if (!this.state.loading) {
+      buttons = this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.category}</Button>)
+      const c = this.state.selectedCategory;
+      if (c != -1) {
+        evalForm = <EvaluationForm category={c} />
+      }
+    } else {
+      buttons = <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>;
     }
+
     return (
       <div>
         <Modal
@@ -62,7 +73,7 @@ class Evaluation extends Component {
         <Row>
           <Col md={12} lg={12}>
             <h3>Begin New Evaluation</h3>
-            {this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.category}</Button>)}
+            {buttons}
           </Col>
         </Row>
         <Row>
