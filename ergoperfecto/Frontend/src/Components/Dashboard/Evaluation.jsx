@@ -9,10 +9,11 @@ class Evaluation extends Component {
 
     this.state = {
       show: false,
+      selectedCategory: -1
     };
 
-    this.handleShow = () => {
-      this.setState({ show: true });
+    this.handleShow = (i) => {
+      this.setState({ show: true, selectedCategory: i });
     };
 
     this.handleHide = () => {
@@ -20,7 +21,27 @@ class Evaluation extends Component {
     };
   }
 
+  componentWillMount=()=>{
+    const questions = this.importAll();
+    console.log(questions);
+    this.setState( {
+      data: questions,
+      selectedCategory: -1
+    });
+  }
+
+  importAll=(r)=> {
+    let questions = require('../../questions.json');
+    return questions;
+  }
+
+
   render() {
+    var evalForm;
+    const c = this.state.selectedCategory;
+    if (c != -1) {
+      evalForm = <EvaluationForm category={c} />
+    }
     return (
       <div>
         <Modal
@@ -31,32 +52,41 @@ class Evaluation extends Component {
          >
          <Modal.Header closeButton>
            <Modal.Title id="example-custom-modal-styling-title">
-             New Evaluation
            </Modal.Title>
          </Modal.Header>
          <Modal.Body>
-          <EvaluationForm />
+          {evalForm}
          </Modal.Body>
        </Modal>
        <div style={{margin: "20px"}}>
-        <h3>Evaluations</h3>
         <Row>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td >dd/mm/yyyy</td>
-              <td><Button variant="info" type="submit">View</Button></td>
-            </tr>
-          </tbody>
-        </Table>
+          <Col md={12} lg={12}>
+            <h3>Begin New Evaluation</h3>
+            {this.state.data.map((item,i) => <Button variant="warning" className="evalButton" onClick={() => this.handleShow(i)} key={i}>{item.category}</Button>)}
+          </Col>
         </Row>
         <Row>
-          <Button variant="primary" type="submit" onClick={this.handleShow}>New Evaluation</Button>
+          <Col md={12} lg={12}>
+            <h3>Evaluations</h3>
+            <Row>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td >dd/mm/yyyy</td>
+                  <td><Button variant="info" type="submit">View</Button></td>
+                </tr>
+              </tbody>
+            </Table>
+            </Row>
+            <Row>
+              <Button variant="primary" type="submit" onClick={this.handleShow}>New Evaluation</Button>
+            </Row>
+          </Col>
         </Row>
         </div>
       </div>
