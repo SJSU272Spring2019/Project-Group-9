@@ -7,14 +7,27 @@ class Profile extends Component {
       super(props)
       this.state = {
         validated: false,
-        firstName: "", //required
-        lastName: "", //Required
-        email: "",  //required
-        password: "",  //required
-        city: "",
-        state: "",
-        zip: "",
+        editing: false,
+        buttonText: "Edit"
       }
+    }
+
+    componentWillMount=()=> {
+      const token = localStorage.getItem('token');
+      console.log(token);
+      axios.get("http://localhost:3001/profile", {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+      }).then((res) => {
+          //This works
+          console.log(res.data)
+          this.setState({
+            firstName: res.data.data.firstName,
+            lastName: res.data.data.lastName,
+            email: res.data.data.email
+          })
+        }).catch(err => console.log("error!", err))
     }
 
     onChange = (e) => {
@@ -25,15 +38,47 @@ class Profile extends Component {
       document.getElementById("profileForm").reset()
     }
 
-    handleSubmit(event) {
-      event.preventDefault()
+    setEditing=()=> {
+      if(this.state.editing) {
+        const formData = {
+          firstName: this.state.firstName, //required
+          lastName: this.state.lastName, //Required
+          email: this.state.email,  //required
+          password: this.state.password,  //required
+        }
+        axios.post("http://localhost:3001/profile",{headers: {
+          token: localStorage.getItem("token")
+        }}, formData)
+          .then((res) => {
+            console.log(res.data)
+            this.clearForm()
+          }).catch(err => console.log("error!", err.response.data))
+        this.setState({ validated: true })
+      }
+      let e = !this.state.editing
+      let m = "Edit"
+      if (e) {
+        m = "Done"
+      }
+      this.setState({
+        editing: e,
+        buttonText: m
+      })
+
+    }
+
+
+    handleSubmit=(event)=> {
+      //event.preventDefault()
       const formData = {
         firstName: this.state.firstName, //required
         lastName: this.state.lastName, //Required
         email: this.state.email,  //required
         password: this.state.password,  //required
       }
-      axios.post("http://10.251.153.191:3001/register", formData)
+      axios.post("http://localhost:3001/profile",{headers: {
+        token: localStorage.getItem("token")
+      }}, formData)
         .then((res) => {
           console.log(res.data)
           this.clearForm()
@@ -43,6 +88,7 @@ class Profile extends Component {
 
   render() {
     const { validated } = this.state
+    const buttonColor = (this.state.editing) ? "success" : "primary";
     return (
       <Form noValidate validated={validated} id="profileForm" onSubmit={e => this.handleSubmit(e)} >
         <Form.Row>
@@ -52,8 +98,8 @@ class Profile extends Component {
               required
               type="text"
               name="firstName"
-              placeholder="First name"
-              defaultValue=""
+              placeholder={this.state.firstName}
+              disabled={!this.state.editing}
               onChange={this.onChange}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -64,8 +110,8 @@ class Profile extends Component {
               required
               type="text"
               name="lastName"
-              placeholder="Last name"
-              defaultValue=""
+              placeholder={this.state.lastName}
+              disabled={!this.state.editing}
               onChange={this.onChange}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -74,37 +120,69 @@ class Profile extends Component {
         <Form.Row>
             <Form.Group as={Col} md={6} controlId="formGroupEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" name="email" placeholder="Enter email" onChange={this.onChange}  required/>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder={this.state.email}
+                onChange={this.onChange}
+                disabled={!this.state.editing}
+                required
+              />
             </Form.Group>
             <Form.Group as={Col} md={6} controlId="formGroupPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" name="password" placeholder="Password" onChange={this.onChange} required />
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.onChange}
+                disabled={!this.state.editing}
+                required
+              />
             </Form.Group>
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} md="6" controlId="validationCustom03">
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" placeholder="City" onChange={this.onChange} />
+            <Form.Control
+              type="text"
+              name="city"
+              placeholder="City"
+              onChange={this.onChange}
+              disabled={!this.state.editing}
+            />
             <Form.Control.Feedback type="invalid">
               Please provide a valid city.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationCustom04">
             <Form.Label>State</Form.Label>
-            <Form.Control type="text" placeholder="State" name="state"  onChange={this.onChange} />
+            <Form.Control
+              type="text"
+              placeholder="State"
+              name="state"
+              onChange={this.onChange}
+              disabled={!this.state.editing}
+            />
             <Form.Control.Feedback type="invalid">
               Please provide a valid state.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationCustom05">
             <Form.Label>Zip</Form.Label>
-            <Form.Control type="text" placeholder="Zip" name="zip" onChange={this.onChange}  />
+            <Form.Control
+              type="text"
+              placeholder="Zip"
+              name="zip"
+              onChange={this.onChange}
+              disabled={!this.state.editing}
+            />
             <Form.Control.Feedback type="invalid">
               Please provide a valid zip.
             </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
-        <Button type="submit">Update</Button>
+       <Button onClick={this.setEditing} variant={buttonColor}>{this.state.buttonText}</Button>
       </Form>
     )
   }
