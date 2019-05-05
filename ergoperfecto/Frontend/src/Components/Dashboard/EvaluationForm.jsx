@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Form, Button, Table, Modal} from 'react-bootstrap';
+import {Row, Col, Form, Button, Table, Modal, Badge} from 'react-bootstrap';
 import axios from 'axios'
 import Question from './Question.jsx';
 
@@ -151,11 +151,13 @@ class EvaluationForm extends Component {
     const question = this.getCurrentQuestion();
     const category = this.getCurrentCategory();
     let previous;
+    let instructions = <></>;
     let next;
     if (!this.isFirstQuestion()) {
       previous = <Button variant="primary" type="submit" onClick={this.previousQuestion}>Previous</Button>
     } else {
       previous = <Button variant="primary" type="submit" disabled>Previous</Button>
+      instructions = <Badge variant="light">Check if yes, leave blank if no</Badge>
     }
 
     if (!this.isLastQuestion()) {
@@ -172,7 +174,7 @@ class EvaluationForm extends Component {
     if (this.state.isChecked) {
       checkBox = <Form.Check label="Yes" name="check" id="formHorizontalRadios1" checked={true} onClick={ this.handleChecked } />;
     } else {
-      checkBox = <Form.Check label="Yes" name="check" id="formHorizontalRadios1" checked={false} onClick={ this.handleChecked } />
+      checkBox = <Form.Check label="Yes" name="check" id="formHorizontalRadios1" checked={false} onClick={ this.handleChecked } />;
     }
     return (
 
@@ -183,6 +185,7 @@ class EvaluationForm extends Component {
            <Col lg={12}>
              <Form.Label as="Col">
               <Question category={category} question={question} />
+              {instructions}
              </Form.Label>
                {checkBox}
              </Col>

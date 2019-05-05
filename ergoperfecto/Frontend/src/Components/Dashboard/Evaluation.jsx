@@ -53,13 +53,12 @@ class Evaluation extends Component {
     } else {
       buttons = <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>;
     }
-
     return (
       <div>
         <Modal
          show={this.state.show}
          onHide={this.handleHide}
-         size="lg"
+         size="xl"
          aria-labelledby="example-custom-modal-styling-title"
          >
          <Modal.Header closeButton>
@@ -70,6 +69,7 @@ class Evaluation extends Component {
           {evalForm}
          </Modal.Body>
        </Modal>
+
        <div style={{margin: "20px"}}>
         <Row>
           <Col md={12} lg={12}>
