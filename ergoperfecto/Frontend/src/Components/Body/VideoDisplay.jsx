@@ -64,7 +64,7 @@ class VideoDisplay extends Component {
                     { currentPage && (
                        <div></div>
                       ) }
-                      <Pagination totalRecords={totalrows} pageLimit={8} pageNeighbours={1} onPageChanged={this.onPageChanged} />
+                      <Pagination totalRecords={totalrows} pageLimit={5} pageNeighbours={1} onPageChanged={this.onPageChanged} />
               </div>
               <Row>
               {currentrows.map( (member) => {

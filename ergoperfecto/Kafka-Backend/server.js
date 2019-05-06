@@ -4,7 +4,7 @@ let db_connection = require('./database.js');
 const loginService = require("./services/login")
 const profileService = require("./services/profile")
 const evaluationService = require("./services/evaluation")
-
+const  physio= require("./services/physio")
 function handleTopicRequest(topic_name,fname){
     //var topic_name = 'root_topic';
     var consumer = connection.getConsumer(topic_name);
@@ -12,7 +12,6 @@ function handleTopicRequest(topic_name,fname){
     console.log('server is running ');
     consumer.on('message', function (message) {
         var data = JSON.parse(message.value) 
-
         let file = null
         if ('file' in data.data){
             file = data.data.file
@@ -23,6 +22,7 @@ function handleTopicRequest(topic_name,fname){
             user : data.data.user,
             file : file,
         }
+       
         fname.handle_request(request_data, function(err,res){
             console.log('after handle',err,res);
             var payloads = [
@@ -44,7 +44,8 @@ function handleTopicRequest(topic_name,fname){
     });
 }
 
-
 handleTopicRequest("auth",loginService)
 handleTopicRequest("user",profileService)
 handleTopicRequest("eval",evaluationService)
+handleTopicRequest("physio",physio)
+
