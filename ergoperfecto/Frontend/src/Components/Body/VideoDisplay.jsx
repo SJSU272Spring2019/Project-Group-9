@@ -33,7 +33,7 @@ class VideoDisplay extends Component {
     }
 
     importAll=(r)=> {
-      let videos = require('../../video.json');    
+      let videos = require('../../video.json');
       return videos;
     }
 

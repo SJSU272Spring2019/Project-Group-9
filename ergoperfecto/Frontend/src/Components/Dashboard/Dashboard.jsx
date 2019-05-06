@@ -43,8 +43,9 @@ class Dashboard extends Component {
       case 1:
         page = <Evaluation></Evaluation>
         break;
-      case 2:
-        page = <RecomendedProducts></RecomendedProducts>
+        case 2:
+        page = <physio></physio>
+        break;
       default:
 
     }
@@ -73,6 +74,9 @@ class Dashboard extends Component {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <a href="#">Physical Therapy</a>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <a href="#evaluation" onClick={() => this.handleLink(2)}>PhysioTherapy</a>
                 </ListGroup.Item>
               </ListGroup>
           </Col>
