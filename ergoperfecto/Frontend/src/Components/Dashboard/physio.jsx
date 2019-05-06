@@ -227,10 +227,8 @@ class Physio extends Component {
                             <td>
                               <Form.Control type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                             </td>
-                            <td>
-                              <Button variant="light">Go</Button>
-                            </td>
-                            </tr>
+                            <td></td>
+                          </tr>
                           {this.state.filtered.map(item => (
                             <tr>
                               <td>
