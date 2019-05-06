@@ -1,56 +1,61 @@
 var async = require('async');
-
 var exercise = require('../models/exerciseSchema');
+
+let getExercises = (user, msg, callback) => {
+    try {
+        console.log("In getexercises topic service. Msg: ", msg)
+        exercise.find( {"username":msg.username}, function(err,result){
+            if (err) {
+                console.log(err);
+                console.log("unable to read the database");
+                callback(err, "unable to read the database");
+            } else 
+                { 
+                    callback(null, {status: 200, result});
+            }       
+        })
+    }
+    catch(error){
+        console.log("Error",error);
+        callback({"success":false,"message":"Invalid Input! Please try again."},null)
+    }
+}
+
+let addExercise = (user, msg, callback) => {
+    try {
+        console.log("In addexercise Msg: ", msg)
+        exercise.update( {"username":msg.username},{$push:{"exercises":msg.exercise}}, { upsert : true }, function(err,result){
+            if (err) {
+                console.log(err);
+                console.log("unable to read the database");
+                callback(err, "unable to read the database");
+            } else 
+                { 
+                callback(null, {status: 200, result});
+            }         
+        })
+    }
+    catch(error){
+        console.log("Error",error);
+        callback({"success":false,"message":"Invalid Input! Please try again."},null)
+    }
+}
 
 
 function handle_request(data,callback){
-
     msg = data.msg
     type = data.type
-    
+    user = data.user
+    console.log("type",type)
     switch (type) {
-        case "addexercise":
-        addexercise(msg,callback);
+		case 'getExercises':
+            getExercises(user,msg,callback);
             break;
-            case "getexercises":
-            getexercises(msg,callback);
-                break;
+        case 'addExercise' :
+            addExercise(user,msg,callback);
+            break;
 	}
 
-}
-
-
-function addexercise(msg, callback){
-
-    console.log("In addexercise Msg: ", msg)
-  
-    exercise.update( {"username":msg.username},{$push:{"exercises":msg.exercise}}, { upsert : true }, function(err,result){
-        if (err) {
-            console.log(err);
-            console.log("unable to read the database");
-            callback(err, "unable to read the database");
-        } else 
-                   { 
-                       callback(null, {status: 200, result});}
-                
-    })
-}
-
-
-function getexercises(msg, callback){
-
-    console.log("In getexercises topic service. Msg: ", msg)
-  
-    exercise.find( {"username":msg.username}, function(err,result){
-        if (err) {
-            console.log(err);
-            console.log("unable to read the database");
-            callback(err, "unable to read the database");
-        } else 
-                   { 
-                       callback(null, {status: 200, result});}
-                
-    })
 }
 
 exports.handle_request = handle_request;

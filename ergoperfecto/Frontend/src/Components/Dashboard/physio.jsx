@@ -127,7 +127,9 @@ class physio extends Component {
     }
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios.post("http://localhost:3001/getexercises",data)
+    axios.post("http://localhost:3001/exercises",data,{headers: {
+      token: localStorage.getItem("token")
+    }})
             .then(response => {
             
       console.log("Status Code : ",response.status);
@@ -191,7 +193,10 @@ class physio extends Component {
     }
     axios.defaults.withCredentials = true;
         console.log("posting")
-    axios.post("http://localhost:3001/addexercise",data)
+
+    axios.post("http://localhost:3001/exercises",data,{headers: {
+      token: localStorage.getItem("token")
+    }})
     .then(response => {
      console.log(response.data,"errr")
   })
