@@ -12,7 +12,7 @@ class ProductCard extends Component {
 
   render() {
     return (
-      <Card style={{ width: '12rem', margin: '2px', textAlign: 'center', display: 'inline-block' }}>
+      <Card style={{ width: '12rem', margin: '10px', textAlign: 'center', display: 'inline-block' }}>
         <Card.Img variant="top" src={this.props.src} style={{width:'1000', height:'100', mode: 'fit'}}/>
         <Card.Body>
           <Card.Title>{this.props.name}</Card.Title>
