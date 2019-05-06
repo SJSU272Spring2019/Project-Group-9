@@ -3,6 +3,7 @@ import { Jumbotron, Row, Col, Container, ListGroup } from 'react-bootstrap';
 import Profile from './Profile';
 import Evaluation from './Evaluation';
 import RecomendedProducts from './RecomendedProducts';
+import Physio from './physio'
 import '../../Styles/Dashboard.css';
 
 class Dashboard extends Component {
@@ -44,7 +45,7 @@ class Dashboard extends Component {
         page = <Evaluation></Evaluation>
         break;
         case 2:
-        page = <physio></physio>
+        page = <Physio></Physio>
         break;
       default:
 
@@ -73,10 +74,7 @@ class Dashboard extends Component {
                   <a href="#evaluation" onClick={() => this.handleLink(1)}>Evaluation</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <a href="#">Physical Therapy</a>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <a href="#evaluation" onClick={() => this.handleLink(2)}>PhysioTherapy</a>
+                  <a href="#physicaltherapy" onClick={() => this.handleLink(2)}>PhysioTherapy</a>
                 </ListGroup.Item>
               </ListGroup>
           </Col>

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 
 
-class physio extends Component {
+class Physio extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -35,16 +35,16 @@ class physio extends Component {
       this.addItem = this.addItem.bind(this);
       this.removeItem = this.removeItem.bind(this);
     }
-  
+
     addItem(e) {
       // Prevent button click from submitting form
       e.preventDefault();
-  
+
       // Create variables for our list, the item to add, and our form
       let list = this.state.list;
       const newItem = document.getElementById("addInput");
       const form = document.getElementById("addItemForm");
-  
+
       // If our input has a value
       if (newItem.value != "") {
         // Add the new item to the end of our list array
@@ -61,7 +61,7 @@ class physio extends Component {
         newItem.classList.add("is-danger");
       }
     }
-  
+
     removeItem(item) {
       // Put our list into an array
       const list = this.state.list.slice();
@@ -78,36 +78,37 @@ class physio extends Component {
         list: list
       });
     }
-  
+
     render() {
       return (
         <div className="content">
-          <div className="container">
-         
-            <section className="section">
-            <input
+          <Row>
+            <Col md={10} lg={10}>
+            <Form.Control
                   type="text"
                   className="input"
                   id="addInput"
                   placeholder="Something that needs ot be done..."
                 />
+              </Col>
+              <Col md={2} lg={2}>
                 <Button  onClick={this.addItem}>
                   Add Item
                 </Button>
-                          <List items={this.state.list} delete={this.removeItem} />
-            </section>
+              </Col>
+                <List items={this.state.list} delete={this.removeItem} />
+            </Row>
             <hr />
             <section className="section">
               <form className="form" id="addItemForm">
-                
+
               </form>
             </section>
-          </div>
         </div>
       );
     }
   }
-  
+
   class List extends React.Component {
       constructor(props) {
           super(props);
@@ -117,7 +118,7 @@ class physio extends Component {
           };
           this.handleChange = this.handleChange.bind(this);
       }
-      
+
       componentDidMount() {
       this.setState({
         filtered: this.props.items
@@ -129,7 +130,7 @@ class physio extends Component {
     //make a post request with the user data
     axios.post("http://localhost:3001/getexercises",data)
             .then(response => {
-            
+
       console.log("Status Code : ",response.status);
       if(response.status === 200){
           console.log(response.data);
@@ -140,25 +141,25 @@ class physio extends Component {
   })
     .catch()
     }
-  
+
     componentWillReceiveProps(nextProps) {
       this.setState({
         filtered: nextProps.items
       });
- 
+
     }
-      
+
       handleChange(e) {
           // Variable to hold the original version of the list
       let currentList = [];
           // Variable to hold the filtered list before putting into state
       let newList = [];
-          
+
           // If the search bar isn't empty
       if (e.target.value !== "") {
               // Assign the original list to currentList
         currentList = this.props.items;
-              
+
               // Use .filter() to determine which items should be displayed
               // based on the search terms
         newList = currentList.filter(item => {
@@ -181,9 +182,9 @@ class physio extends Component {
       });
     }
     addtolist=(x)=>{
-      var newArray = this.state.addedlist.slice();    
+      var newArray = this.state.addedlist.slice();
       newArray.push(x);
-      console.log(newArray)  
+      console.log(newArray)
       this.setState({addedlist:newArray})
       var data={
         username:"kavya.chennoju@sjsu.edu",
@@ -201,37 +202,57 @@ class physio extends Component {
 
     }
     removefromlist=(x)=>{
-      var newArray = this.state.addedlist.slice();    
+      var newArray = this.state.addedlist.slice();
       newArray.pop(x);
       newArray.splice( newArray.indexOf(x), -1 );
-      console.log(newArray)   
+      console.log(newArray)
       this.setState({addedlist:newArray})
     }
-   
+
       render() {
           return (
             <Container fluid>
             <Row>
               <Col sm={12} md={10} lg={6}>
                 <div class="dashboard-content">
-                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-                      <ul>
-                          {this.state.filtered.map(item => (<div> 
-                            <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
-                           
-                              <strong>    {item} </strong>
-                              </Link><span onClick={()=>this.addtolist(item)}> <FontAwesomeIcon icon="star" style={{color: '#fcdc06'}}/></span>
-                              </div>
+                      <Table  striped hover size="sm">
+                        <thead>
+                          <tr>
+                            <th>Exercise</th>
+                            <th>Add Favorite</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <Form.Control type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+                            </td>
+                            <td>
+                              <Button variant="light">Go</Button>
+                            </td>
+                            </tr>
+                          {this.state.filtered.map(item => (
+                            <tr>
+                              <td>
+                                <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
+                                  <strong>{item}</strong>
+                                  </Link>
+                              </td>
+                              <td>
+                                  <span onClick={()=>this.addtolist(item)}> <FontAwesomeIcon icon="star" style={{color: '#fcdc06'}}/></span>
+                              </td>
+                            </tr>
                           ))}
-                      </ul>
+                          </tbody>
+                      </Table>
                 </div>
               </Col>
               <Col sm={26} md={10} lg={6}>
                 <div class="dashboard-content">
                       <ul>
-                          {this.state.addedlist.map(item => (<div> 
+                          {this.state.addedlist.map(item => (<div>
                             <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
-                           
+
                               <strong>    {item} </strong>
                               </Link><span onClick={()=>this.removefromlist(item)}><span> <strong>X</strong></span></span>
                               </div>
@@ -242,9 +263,9 @@ class physio extends Component {
               </Col>
             </Row>
           </Container>
-          
+
           )
       }
   }
-  
-  export default physio;
+
+  export default Physio;

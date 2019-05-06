@@ -11,7 +11,7 @@ class Chatbot extends Component {
 
     this.state = {
       rows:[],
-    
+
     }
 
     }
@@ -19,9 +19,9 @@ class Chatbot extends Component {
 
     return (
       <div>
-      
+
         <Container fluid>
-         
+
             <div className="center">
             <ChatBot
   headerTitle="ErgoPerfectoRobot"
@@ -41,9 +41,9 @@ class Chatbot extends Component {
                 { value: '4', label: 'Need Customized Reminders', trigger: '6' },
                 { value: '5', label: 'Need a personal physiotherapy session', trigger: '7' },
               ],
-              
+
             },
-  
+
     {
       id: '3',
       message: 'Could you please contact 911465211 to get it resolved!',
@@ -53,7 +53,7 @@ class Chatbot extends Component {
       id: '4',
       message: 'Please go through our exercises videos if you need any assistance call 876354221!',
       trigger: '8',
-   
+
     },
     {
       id: '5',
@@ -82,7 +82,7 @@ class Chatbot extends Component {
                 { value: '1', label: 'Yes', trigger: '2' },
                 { value: '2', label: 'No', trigger: '10' },
               ],
-              
+
             },
 
             {
@@ -90,13 +90,13 @@ class Chatbot extends Component {
       message: 'Thank You!',
      end: true,
     },
-  
+
 
   ]}
 />
 </div>
-          
-       
+
+
         </Container>
       </div>
     );

@@ -78,10 +78,10 @@ class LoginSidebar extends Component {
         this.clearForm();
       })
       .catch(err => {
-        console.log("error!", err.data.message)
+        console.log("error!", err.message)
         this.setState({
           error: true,
-          errorMessage: err.data.message
+          errorMessage: err.message
         })
       })
     // this.setState({ validated: true });
