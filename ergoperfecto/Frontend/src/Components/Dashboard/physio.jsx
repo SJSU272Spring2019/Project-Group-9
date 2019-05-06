@@ -247,16 +247,24 @@ class Physio extends Component {
               </Col>
               <Col sm={26} md={10} lg={6}>
                 <div class="dashboard-content">
-                      <ul>
-                          {this.state.addedlist.map(item => (<div>
-                            <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
-
-                              <strong>    {item} </strong>
-                              </Link><span onClick={()=>this.removefromlist(item)}><span> <strong>X</strong></span></span>
-                              </div>
-                          ))}
-                          {console.log(this.state.addedlist)}
-                      </ul>
+                  <h4>Favorites</h4>
+                    <ListGroup defaultActiveKey="#link1">
+                      {this.state.addedlist.map(item => (
+                          <ListGroup.Item>
+                            <Row>
+                              <Col md={1} lg={1}>
+                                <span onClick={()=>this.removefromlist(item)}> <FontAwesomeIcon icon="minus" style={{color: '#af3838'}}/></span>
+                              </Col>
+                              <Col md={11} lg={11}>
+                                <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
+                                  <strong>{item}</strong>
+                                </Link>
+                              </Col>
+                            </Row>
+                          </ListGroup.Item>
+                      ))}
+                  </ListGroup>
+                  {console.log(this.state.addedlist)}
                 </div>
               </Col>
             </Row>
