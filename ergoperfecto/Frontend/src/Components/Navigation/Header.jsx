@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
 
 
 class Header extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      redirect: false
+    }
+  }
+
+  logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('user_email');
+    this.setState({redirect: true});
+  }
+
   loggedIn=()=> {
     return localStorage.hasOwnProperty('token')
   }
@@ -16,7 +32,7 @@ class Header extends Component {
          </NavDropdown.Item>
          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
-         <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+         <NavDropdown.Item href="#action/3.4" onClick={this.logout}>Logout</NavDropdown.Item>
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>
@@ -24,11 +40,12 @@ class Header extends Component {
   }
 
   render() {
-    let dropdown
+    let dropdown =<></>
     if(this.loggedIn()) {
-      console.log(this.loggedIn());
+      console.log("logged in");
       dropdown = this.dashboard()
-      }
+    }
+
     else dropdown = <></>
     return (
       <div>

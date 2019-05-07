@@ -48,8 +48,9 @@ class ProductDisplay extends Component {
     const { rows, currentrows, currentPage, totalPages } = this.state;
     const totalrows = rows.length;
     let nav=null;
-    if(this.state.goto===true)
-      nav=<Redirect to= "/login"/>
+    {//if(this.state.goto===true)
+      //nav=<Redirect to= "/login"/>
+    }
     if (totalrows === 0) return null;
     return (
       <div>

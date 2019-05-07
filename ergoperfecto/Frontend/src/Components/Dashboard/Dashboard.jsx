@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Jumbotron, Row, Col, Container, ListGroup } from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 import Profile from './Profile';
 import Evaluation from './Evaluation';
 import RecomendedProducts from './RecomendedProducts';
@@ -38,10 +39,17 @@ class Dashboard extends Component {
 
   }
 
+  loggedIn=()=> {
+    return localStorage.hasOwnProperty('token')
+  }
+
   render() {
     let page;
+    let mainPage = <></>
     const id = this.state.currentPageId;
-
+    if (!this.loggedIn()) {
+      mainPage = <Redirect to="/productdisplay" />
+    }
     switch (id) {
       case 0:
         page = <Profile></Profile>
@@ -60,6 +68,7 @@ class Dashboard extends Component {
 
     return (
       <Container fluid>
+      {mainPage}
         <Row>
           <Col md={2} lg={2}>
             <h1>Dashboard</h1>

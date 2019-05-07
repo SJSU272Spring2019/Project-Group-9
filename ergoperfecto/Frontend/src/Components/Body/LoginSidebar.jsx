@@ -77,10 +77,11 @@ class LoginSidebar extends Component {
         localStorage.setItem('user_id',response.data.user.id)
         localStorage.setItem('user_email',response.data.user.email)
         localStorage.setItem('user_name',response.data.user.name)
+        this.clearForm();
         this.setState({
           redirect: true
         })
-        this.clearForm();
+
       })
       .catch(err => {
         console.log("error!", err.message)
@@ -181,7 +182,7 @@ class LoginSidebar extends Component {
       myForm = this.loginForm();
     if (this.state.error)
       alert = this.renderErrorMessage();
-    if(this.state.redirect === true){
+    if(this.state.redirect == true){
       dashboard = <Redirect to="/dashboard" />
     } else{
         dashboard = <></>
