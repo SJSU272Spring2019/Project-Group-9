@@ -3,8 +3,33 @@ import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} f
 
 
 class Header extends Component {
+  loggedIn=()=> {
+    return localStorage.hasOwnProperty('token')
+  }
+
+  dashboard = () => {
+    return (
+      <Nav>
+       <NavDropdown title="My Account" id="basic-nav-dropdown">
+         <NavDropdown.Item href="/dashboard">
+           Dashboard <Badge variant="info">2</Badge>
+         </NavDropdown.Item>
+         <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+         <NavDropdown.Divider />
+         <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+       </NavDropdown>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </Nav>
+    );
+  }
 
   render() {
+    let dropdown
+    if(this.loggedIn()) {
+      console.log(this.loggedIn());
+      dropdown = this.dashboard()
+      }
+    else dropdown = <></>
     return (
       <div>
       <Navbar bg="light" expand="lg" >
@@ -17,20 +42,8 @@ class Header extends Component {
           </Nav>
           <Nav className="mr-auto">
             <Nav.Link href="/chatbot">ChatWithUs</Nav.Link>
-           
           </Nav>
-
-          <Nav>
-           <NavDropdown title="My Account" id="basic-nav-dropdown">
-             <NavDropdown.Item href="/dashboard">
-               Dashboard <Badge variant="info">2</Badge>
-             </NavDropdown.Item>
-             <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
-             <NavDropdown.Divider />
-             <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
-           </NavDropdown>
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         </Nav>
+          {dropdown}
         </Navbar.Collapse>
       </Navbar>
 
