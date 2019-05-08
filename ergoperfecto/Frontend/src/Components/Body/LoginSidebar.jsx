@@ -115,7 +115,6 @@ class LoginSidebar extends Component {
     // console.log("email",response.profileObj.email);
     // console.log("firstName",response.profileObj.givenName);
     // console.log("lastName",response.profileObj.familyName);
-    this.setState({redirect:true})
     let formData = {
       googleOAuth : true,
       firstName: response.profileObj.givenName, //required
