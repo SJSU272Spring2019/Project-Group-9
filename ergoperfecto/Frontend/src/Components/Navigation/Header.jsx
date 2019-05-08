@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
 import { GoogleLogout } from 'react-google-login';
+import axios from 'axios'
 
 class Header extends Component {
 
@@ -13,10 +14,15 @@ class Header extends Component {
   }
 
   logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('user_email');
-    this.setState({redirect: true});
+    axios.get("http://localhost:3001/logout", {headers: {
+        token: localStorage.getItem("token")
+      }})
+        .then((res) => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user_id');
+          localStorage.removeItem('user_email');
+          this.setState({redirect: true});
+        }).catch(err => console.log("error!", err.response.data))
   }
 
   loggedIn=()=> {
@@ -32,12 +38,12 @@ class Header extends Component {
          </NavDropdown.Item>
          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
-         <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
+         {/* <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item> */}
          <GoogleLogout
-      buttonText="Logout"
-      onLogoutSuccess={this.logout}
-    >
-    </GoogleLogout>
+              buttonText="Logout"
+              onLogoutSuccess={this.logout}
+            >
+         </GoogleLogout>
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>
@@ -51,9 +57,15 @@ class Header extends Component {
       dropdown = this.dashboard()
     }
 
+    let redirectLogout = <></>
+    if(this.state.redirect) {
+      redirectLogout = <Redirect to="/" />
+    }
+
     else dropdown = <></>
     return (
       <div>
+        {redirectLogout}
       <Navbar bg="light" expand="lg" >
         <Navbar.Brand href="/">✅ ErgoPerfecto</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
