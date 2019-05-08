@@ -7,8 +7,8 @@ let API = {
     profile     : '/profile'   ,
     questions   : '/questions' ,
     answers     : '/answers'   ,
+    exercises   : '/exercises'
   }
 }
 
 export default API;
-

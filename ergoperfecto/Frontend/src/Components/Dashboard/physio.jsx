@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import {Row, Col, Form, Button, Table, Modal,Container, ListGroup} from 'react-bootstrap';
 import '../../Styles/Dashboard.css';
+import API from '../../api/API'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
@@ -129,6 +130,7 @@ class Physio extends Component {
         }
         axios.defaults.withCredentials = true;
         //make a post request with the user data
+        const url = API.baseURL + API.exercises
         axios.post("http://localhost:3001/getexercises",data)
                 .then(response => {
 
