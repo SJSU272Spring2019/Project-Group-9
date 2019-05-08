@@ -55,6 +55,7 @@ module.exports = (router) => {
     /* evaluation */
     router.get('/questions', verifyJWTToken,evaluationController.questionsGet)
     router.post('/answers', verifyJWTToken,evaluationController.saveAnswers)
+    router.get('/sections', verifyJWTToken,evaluationController.getEvaluationForRecommendation)
     /* evaluation */
 
     /* physio */
