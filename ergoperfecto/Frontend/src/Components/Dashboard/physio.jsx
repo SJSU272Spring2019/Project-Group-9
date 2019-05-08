@@ -120,26 +120,29 @@ class Physio extends Component {
       }
 
       componentDidMount() {
-
+   
         this.setState({
           filtered: this.props.items
         });
         var data={
-          username:"kavya.chennoju@sjsu.edu"
+          username:localStorage.getItem("user_email")
         }
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post("http://localhost:3001/getexercises",data)
+        axios.get("http://localhost:3001/exercises",{params:data})
                 .then(response => {
 
 
           console.log("Status Code : ",response.status);
           if(response.status === 200){
-              console.log(response.data);
-              // let d = response.data
-              // this.setState({
-              //     addedlist : d
-              // })
+           
+             
+              let d = response.data
+              if(response.data.result[0]!=null)
+               this.setState({
+                   addedlist : d.result[0].exercises
+               })
+               console.log(this.state.addedlist,"listed")
           }
         })
         .catch()
@@ -191,12 +194,12 @@ class Physio extends Component {
         console.log(newArray)
         this.setState({addedlist:newArray})
         var data={
-          username:"kavya.chennoju@sjsu.edu",
+          username:localStorage.getItem("user_email"),
           exercise:x
         }
         axios.defaults.withCredentials = true;
             console.log("posting")
-        axios.post("http://localhost:3001/addexercise",data)
+        axios.post("http://localhost:3001/exercises",data)
         .then(response => {
          console.log(response.data,"errr")
         }).catch(err=>
@@ -210,6 +213,14 @@ class Physio extends Component {
         newArray.splice( newArray.indexOf(x), -1 );
         console.log(newArray)
         this.setState({addedlist:newArray})
+        var data={
+          username:localStorage.getItem("user_email"),
+          exercise:x
+        }
+        axios.defaults.withCredentials = true;
+        //make a post request with the user data
+
+        axios.post("http://localhost:3001/deleteexercise",data)
       }
 
       doRegex=(item)=> {
@@ -257,7 +268,7 @@ class Physio extends Component {
                 <div class="dashboard-content">
                   <h4>Favorites</h4>
                     <ListGroup defaultActiveKey="#link1">
-                      {this.state.addedlist.map(item => (
+                     {this.state.addedlist.map (item=>
                           <ListGroup.Item>
                             <Row>
                               <Col md={1} lg={1}>
@@ -265,12 +276,12 @@ class Physio extends Component {
                               </Col>
                               <Col md={11} lg={11}>
                                 <Link to={"/singleitem/" + this.doRegex()}>
-                                  <strong>{item}</strong>
+                     <strong>{item}</strong>
                                 </Link>
                               </Col>
                             </Row>
                           </ListGroup.Item>
-                      ))}
+                      )}
                   </ListGroup>
                   {console.log(this.state.addedlist)}
                 </div>

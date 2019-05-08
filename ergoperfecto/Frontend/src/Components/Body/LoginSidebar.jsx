@@ -4,6 +4,7 @@ import {Redirect, withRouter} from 'react-router-dom'
 import AlertMessage from './AlertMessage'
 import API from '../../api/API'
 import axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 
 class LoginSidebar extends Component {
     constructor(props) {
@@ -99,6 +100,24 @@ class LoginSidebar extends Component {
 
     console.log(this.state.redirect);
   }
+  responseGoogle = (response) => {
+    console.log("token",response.Zi.access_token);
+    console.log("email",response.profileObj.email);
+    console.log("firstName",response.profileObj.givenName);
+    console.log("lastName",response.profileObj.familyName); 
+    this.setState({redirect:true})
+    let formData = {
+      firstName: response.profileObj.givenName, //required
+      lastName: response.profileObj.familyName, //Required
+      email: response.profileObj.email,  //required
+      password: "googlelogin",  //required
+    }
+    let   endpoint = API.routes.register
+    const url = API.baseURL + endpoint
+    axios.post(url, formData)
+
+  
+  }
 
   signUpForm = () => {
 
@@ -158,6 +177,15 @@ class LoginSidebar extends Component {
       <Row>
         <Col md={12} lg={12}>
         <Button variant="success" type="submit" style={{width: '100%'}}>Login</Button>
+        </Col>
+        <Col md={12} lg={12}>
+        <GoogleLogin
+    clientId="811696992821-kqv2bdca8lrnuvq6mqr5vp8lggvv5inr.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={this.responseGoogle}
+    onFailure={this.responseGoogle}
+    cookiePolicy={'single_host_origin'}
+  />
         </Col>
       </Row>
       <br />
