@@ -57,6 +57,7 @@ class LoginSidebar extends Component {
      event.preventDefault();
      if(this.state.signUp === 1) {
        formData = {
+          googleOAuth : false,
          firstName: this.state.firstName, //required
          lastName: this.state.lastName, //Required
          email: this.state.email,  //required
@@ -113,10 +114,11 @@ class LoginSidebar extends Component {
     console.log("lastName",response.profileObj.familyName); 
     this.setState({redirect:true})
     let formData = {
+      googleOAuth : true,
       firstName: response.profileObj.givenName, //required
       lastName: response.profileObj.familyName, //Required
       email: response.profileObj.email,  //required
-      password: "googlelogin",  //required
+      password: "googlelogin",  //required -- placeholder actual password string taken from backend
     }
     let   endpoint = API.routes.register
     const url = API.baseURL + endpoint
