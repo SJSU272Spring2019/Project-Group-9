@@ -63,8 +63,6 @@ app.use(bodyParser.json());
 // app.use(basePath, productRoutes);
 
 var urls =require('./routes/url')
-var physio=require('./routes/physiotherapy')
-app.use('/',physio);
 app.use('/',urls(express.Router()));
 
 app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
