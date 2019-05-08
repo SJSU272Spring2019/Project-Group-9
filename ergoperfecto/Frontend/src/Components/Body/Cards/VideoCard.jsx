@@ -12,7 +12,7 @@ class VideoCard extends Component {
 
   render() {
     return (
-      <Card style={{ width: '25rem', margin: '18px', textAlign: 'center', display: 'inline-block' }}>
+      <Card style={{ width: '25rem', margin: '18px', textAlign: 'center', display: 'inline-block', borderRadius:'20px' }}>
         <Card.Body>
         <Card.Title>{this.props.title}</Card.Title>
         <iframe width="280" height="150" src={this.props.src} frameBorder='0'
