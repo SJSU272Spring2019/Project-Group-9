@@ -82,6 +82,7 @@ let registerPost = (msg, callback) => {
                         let userRequestData = { firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic}
                         if (googleOAuth){
                             let userResult = await gooleLoginController(userRequestData);
+                            console.log("----------------------Returning to frontend")
                             callback(null,{"success":true,"message":"Sucessfully logged in","token":userResult.token,user:userResult.user})
                         }else{
                             User.findOne({ email: email }, function(user_error, user_obj) {

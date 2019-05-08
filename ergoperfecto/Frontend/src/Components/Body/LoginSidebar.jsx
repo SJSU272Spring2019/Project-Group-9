@@ -124,7 +124,31 @@ class LoginSidebar extends Component {
     let   endpoint = API.routes.register
     const url = API.baseURL + endpoint
     axios.post(url, formData)
-
+    .then((response) => {
+      if(response.data.success){
+        localStorage.setItem("token",response.data.token);
+        localStorage.setItem('user_id',response.data.user.id)
+        localStorage.setItem('user_email',response.data.user.email)
+        localStorage.setItem('user_name',response.data.user.name)
+        this.clearForm();
+        this.setState({
+          redirect: true
+        })
+      }
+      else{
+        this.setState({
+          error: true,
+          errorMessage: response.data.message
+        })
+      }
+    })
+    .catch(err => {
+      console.log("error!", err.message)
+      this.setState({
+        error: true,
+        errorMessage: err.message
+      })
+    })
 
   }
 
