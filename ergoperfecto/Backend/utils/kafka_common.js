@@ -5,7 +5,7 @@ let call_kafka = (req, res, topic,data) => {
         console.log("result from kafka",err,result)
         if (err){
             console.log("Inside err",err);
-            return res.status(500).json(err); 
+            return res.json(err); 
         }else{
                 console.log("result sending----\n",result)
                 return res.json(result)
