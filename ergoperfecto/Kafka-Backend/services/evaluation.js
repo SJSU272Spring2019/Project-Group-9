@@ -1,7 +1,7 @@
 let Joi = require('joi');
 let domain_base = require("../constants").domain_base;
 const Section = require('../models/evaluationSectionSchema').section;
-const evaluationAnswers = require("../models/evaluationAnserSchema");
+const evaluationAnswers = require("../models/evaluationAnswerSchema");
 
 let questionsGet = (user,msg,callback) => {
     try {
@@ -45,9 +45,18 @@ let saveAnswers = (user,msg,callback) => {
 let getEvaluationForRecommendation = (user,msg,callback) => {
     try {
         let sectionIds = []
-        evaluationAnswers.find({userId:user.id}).select({answers:1})
-        .then((evaluationAnswerObjs) => {
-            callback(null,{"success":true},)
+        evaluationAnswers.find({userId:user.id}).distinct('answers.sectionId')
+        .then((sectionIds) => {
+            console.log("List of section ids\n",sectionIds)
+            Section.find({'id':{$in:sectionIds}}).select({_id:0,questions:0,__v:0})
+            .then((response) => {
+                console.log("Response sending to the frondend\n",response)
+                callback(null,{"success":true,"message":"List of recommended section of user",data:response})
+            }).catch(error => {
+                console.log("Error",error);
+                callback({"success":false,"message":"Something went wrong! Please try again"},null)
+            })
+            
         }).catch(error => {
             console.log("Error",error);
             callback({"success":false,"message":"Something went wrong! Please try again"},null)
