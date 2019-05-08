@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Row, Col, Form, Button, Table, Modal, Badge} from 'react-bootstrap';
 import axios from 'axios'
 import Question from './Question.jsx';
+import API from '../../api/API'
+import axios from 'axios'
 
 class EvaluationForm extends Component {
   constructor(props, context) {
@@ -131,13 +133,14 @@ class EvaluationForm extends Component {
   }
 
   handleSubmit =  async () => {
-    let formData = this.state.answers
-    axios.post("http://localhost:3001/answers",{headers: {
+    const formData = this.state.answers
+    const url = API.baseURL + API.routes.answers
+    axios.post(url, formData, {headers: {
       token: localStorage.getItem("token")
-    }}, formData)
+    }})
       .then((res) => {
         console.log(res.data)
-      }).catch(err => console.log("error!", err.response.data))
+      }).catch(err => console.log("error!", err))
     this.setState({ validated: true })
   }
 

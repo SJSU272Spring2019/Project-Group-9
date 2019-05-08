@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Form, Row, Col, InputGroup, Button} from 'react-bootstrap'
 import axios from 'axios'
+import API from '../../api/API'
+
 
 class Profile extends Component {
     constructor(props) {
@@ -8,14 +10,14 @@ class Profile extends Component {
       this.state = {
         validated: false,
         editing: false,
-        buttonText: "Edit"
+        buttonText: "Edit",
       }
     }
 
     componentWillMount=()=> {
       const token = localStorage.getItem('token');
-      console.log(token);
-      axios.get("http://localhost:3001/profile", {
+      const url = API.baseURL + API.routes.profile
+      axios.get(url, {
           headers: {
             token: localStorage.getItem("token")
           }
@@ -46,14 +48,16 @@ class Profile extends Component {
           email: this.state.email,  //required
           password: this.state.password,  //required
         }
-        axios.post("http://localhost:3001/profile",formData, {headers: {
+        const url = API.baseURL+API.rprofile
+        axios.post(url, formData, {headers: {
+
             token: localStorage.getItem("token")
           }
         })
           .then((res) => {
             console.log(res.data)
             this.clearForm()
-          }).catch(err => console.log("error!", err.response.data))
+          }).catch(err => console.log("error!", err))
         this.setState({ validated: true })
       }
       let e = !this.state.editing
@@ -125,8 +129,7 @@ class Profile extends Component {
                 type="email"
                 name="email"
                 placeholder={this.state.email}
-                onChange={this.onChange}
-                disabled={!this.state.editing}
+                disabled
                 required
               />
             </Form.Group>

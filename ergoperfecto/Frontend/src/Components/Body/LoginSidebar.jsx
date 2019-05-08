@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Card, Button, Row, Col, Form, Alert} from 'react-bootstrap';
 import AlertMessage from './AlertMessage'
+import API from '../../api/API'
 import axios from 'axios';
 
 class LoginSidebar extends Component {
@@ -58,15 +59,18 @@ class LoginSidebar extends Component {
          email: this.state.email,  //required
          password: this.state.password,  //required
        }
-       endpoint = "register"
+
+       endpoint = API.routes.register
      } else {
        formData = {
          email: this.state.email,  //required
          password: this.state.password,  //required
        }
-       endpoint = "login"
+       endpoint = API.routes.login
      }
-     axios.post(`http://localhost:3001/${endpoint}`, formData)
+     const url = API.baseURL + endpoint
+     axios.post(url, formData)
+
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("token",response.data.token);
