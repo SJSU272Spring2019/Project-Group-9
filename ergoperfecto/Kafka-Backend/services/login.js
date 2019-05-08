@@ -50,7 +50,7 @@ let registerPost = (msg, callback) => {
                             else{
                                 let db_obj = new User({ firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic})
                                 db_obj.save().then(result => {
-                                    console.log("New User registered successfully\n",result);
+                                    console.log("------------New User registered successfully\n",result);
                                     let token = jwt.sign({id:result.id,email:result.email}, 'jwtSecretKey', { expiresIn: '30 days' });
                                     delete result.password
                                     console.log("User logged in\nSending 200 with JWT\n\n\n\n",token)
