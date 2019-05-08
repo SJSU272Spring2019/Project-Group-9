@@ -110,10 +110,10 @@ class LoginSidebar extends Component {
     console.log(this.state.redirect);
   }
   responseGoogle = (response) => {
-    console.log("token",response.Zi.access_token);
-    console.log("email",response.profileObj.email);
-    console.log("firstName",response.profileObj.givenName);
-    console.log("lastName",response.profileObj.familyName);
+    // console.log("token",response.Zi.access_token);
+    // console.log("email",response.profileObj.email);
+    // console.log("firstName",response.profileObj.givenName);
+    // console.log("lastName",response.profileObj.familyName);
     this.setState({redirect:true})
     let formData = {
       googleOAuth : true,
@@ -126,6 +126,7 @@ class LoginSidebar extends Component {
     const url = API.baseURL + endpoint
     axios.post(url, formData)
     .then((response) => {
+      console.log(response)
       if(response.data.success){
         localStorage.setItem("token",response.data.token);
         localStorage.setItem('user_id',response.data.user.id)
