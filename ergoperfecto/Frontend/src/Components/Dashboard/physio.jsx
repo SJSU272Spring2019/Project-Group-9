@@ -89,7 +89,7 @@ class Physio extends Component {
                   type="text"
                   className="input"
                   id="addInput"
-                  placeholder="Something that needs ot be done..."
+                  placeholder="Something that needs to be done..."
                 />
               </Col>
               <br /><br />
