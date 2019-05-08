@@ -38,6 +38,7 @@ const upload = multer({
 const loginController = require('../controller/loginController');
 const profileController = require("../controller/profileController");
 const evaluationController = require("../controller/evaluationController");
+const physioController = require("../controller/physiotherapyController")
 
 module.exports = (router) => {
     /* login */
@@ -55,6 +56,11 @@ module.exports = (router) => {
     router.get('/questions', verifyJWTToken,evaluationController.questionsGet)
     router.post('/answers', verifyJWTToken,evaluationController.saveAnswers)
     /* evaluation */
+
+    /* physio */
+    router.get('/exercises', verifyJWTToken,physioController.getExercises)
+    router.post('/exercises', verifyJWTToken,physioController.addExercise)
+    /* physio */
 
     return router;
 }

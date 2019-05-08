@@ -1,4 +1,3 @@
-
 let API = {
   baseURL       : 'http://localhost:3001',
   routes: {
@@ -12,3 +11,4 @@ let API = {
 }
 
 export default API;
+

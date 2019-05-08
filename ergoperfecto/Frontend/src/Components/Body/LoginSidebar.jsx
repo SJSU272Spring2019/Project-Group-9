@@ -59,6 +59,7 @@ class LoginSidebar extends Component {
          email: this.state.email,  //required
          password: this.state.password,  //required
        }
+
        endpoint = API.routes.register
      } else {
        formData = {
@@ -69,6 +70,7 @@ class LoginSidebar extends Component {
      }
      const url = API.baseURL + endpoint
      axios.post(url, formData)
+
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("token",response.data.token);

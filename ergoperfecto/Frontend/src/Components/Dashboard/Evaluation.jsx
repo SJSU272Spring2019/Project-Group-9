@@ -26,6 +26,7 @@ class Evaluation extends Component {
 
   componentWillMount=()=>{
     const token = localStorage.getItem('token');
+
     const url = API.baseURL + API.routes.questions
     axios.get(url, {
         headers: {

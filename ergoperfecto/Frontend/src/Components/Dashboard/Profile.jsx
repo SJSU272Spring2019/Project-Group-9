@@ -3,6 +3,7 @@ import {Form, Row, Col, InputGroup, Button} from 'react-bootstrap'
 import axios from 'axios'
 import API from '../../api/API'
 
+
 class Profile extends Component {
     constructor(props) {
       super(props)
@@ -49,6 +50,7 @@ class Profile extends Component {
         }
         const url = API.baseURL+API.rprofile
         axios.post(url, formData, {headers: {
+
             token: localStorage.getItem("token")
           }
         })
