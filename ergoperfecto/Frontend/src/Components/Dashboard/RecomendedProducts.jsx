@@ -9,14 +9,12 @@ var search = require('youtube-search');
 var opts = {
   maxResults: 10,
   key: 'AIzaSyCHt0bzmXNaq4dhiXw8E_dqjOv-Rau9KBE',
- 
+
 
 };
 class RecomendedProducts extends Component {
   constructor(props) {
     super(props);
-
-
      this.state = {
        index: 0,
        direction: null,
@@ -26,13 +24,7 @@ class RecomendedProducts extends Component {
      this.populaterows=this.populaterows.bind(this);
    }
 
- 
-
-
   componentDidMount=()=>{
- 
-
- 
 
   }
   populaterows(results){
@@ -50,18 +42,18 @@ class RecomendedProducts extends Component {
     var id=[],result,display=[],id1="",id2="",id3="",id4="",id5="";
     search('neck office ergonomics ', opts, function(err, results) {
       if(err) return console.log(err);
-     
-      console.log(results); 
+
+      console.log(results);
      result=results;
      var i=0;
       results.map(member=>
-        
+
         id[i++]="https://www.youtube.com/embed/"+member.id
-      
-   
+
+
         )
         id.map(member=>  display.push(   <VideoCard title="Exercise 1" src={member}/>))
-      
+
   })
  console.log(id,"check")
 
@@ -124,7 +116,7 @@ class RecomendedProducts extends Component {
               <Row>
                 <Col sm={3} md={3} lg={3}></Col>
                 <Col sm={3} md={3} lg={3}>
-                    <VideoCard title="Exercise 1" src="https://www.youtube.com/embed/zaFv0qNjSs0"/>
+                    <VideoCard title="Exercise 1" src="https://www.youtube.com/embed/K88q_oEwRS8"/>
                 </Col>
                 <Col sm={3} md={3} lg={3}></Col>
               </Row>
@@ -134,7 +126,7 @@ class RecomendedProducts extends Component {
                 <Col sm={3} md={3} lg={3}>
                 </Col>
                 <Col sm={3} md={3} lg={3}>
-                  <VideoCard title="Exercise 3" src="https://www.youtube.com/embed/k-leOisqQeg"/>
+                  <VideoCard title="Exercise 2" src="https://www.youtube.com/embed/AJSDoHFN30Y" />
                 </Col>
                 <Col sm={3} md={3} lg={3}></Col>
               </Row>
@@ -143,17 +135,98 @@ class RecomendedProducts extends Component {
              <Row>
                <Col sm={3} md={3} lg={3}></Col>
                <Col sm={3} md={3} lg={3}>
-                 <VideoCard title="Exercise 3" src="https://www.youtube.com/embed/k-leOisqQeg"/>
+                 <VideoCard title="Exercise 3" src="https://www.youtube.com/embed/5lbe9oZbpDs" />
                </Col>
                <Col sm={3} md={3} lg={3}></Col>
-
              </Row>
           </Carousel.Item>
+          <Carousel.Item>
+            <Row>
+              <Col sm={3} md={3} lg={3}></Col>
+              <Col sm={3} md={3} lg={3}>
+                <VideoCard title="Exercise 4" src="https://www.youtube.com/embed/eJ48kgGJz88" />
+              </Col>
+              <Col sm={3} md={3} lg={3}></Col>
+            </Row>
+         </Carousel.Item>
+         <Carousel.Item>
+           <Row>
+             <Col sm={3} md={3} lg={3}></Col>
+             <Col sm={3} md={3} lg={3}>
+               <VideoCard title="Exercise 5" src="https://www.youtube.com/embed/b2IXhNX5nJA" />
+             </Col>
+             <Col sm={3} md={3} lg={3}></Col>
+           </Row>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Row>
+            <Col sm={3} md={3} lg={3}></Col>
+            <Col sm={3} md={3} lg={3}>
+              <VideoCard title="Exercise 6" src="https://www.youtube.com/embed/XkT7jxFfPHA" />
+            </Col>
+            <Col sm={3} md={3} lg={3}></Col>
+          </Row>
+       </Carousel.Item>
+       <Carousel.Item>
+         <Row>
+           <Col sm={3} md={3} lg={3}></Col>
+           <Col sm={3} md={3} lg={3}>
+             <VideoCard title="Exercise 7" src="https://www.youtube.com/embed/_JmSpW5CrhQ" />
+           </Col>
+           <Col sm={3} md={3} lg={3}></Col>
+         </Row>
+      </Carousel.Item>
+      <Carousel.Item>
+        <Row>
+          <Col sm={3} md={3} lg={3}></Col>
+          <Col sm={3} md={3} lg={3}>
+            <VideoCard title="Exercise 8" src="https://www.youtube.com/embed/_JmSpW5CrhQ" />
+          </Col>
+          <Col sm={3} md={3} lg={3}></Col>
+        </Row>
+     </Carousel.Item>
+     <Carousel.Item>
+       <Row>
+         <Col sm={3} md={3} lg={3}></Col>
+         <Col sm={3} md={3} lg={3}>
+           <VideoCard title="Exercise 9" src="https://www.youtube.com/embed/uylD3fdYrBM" />
+         </Col>
+         <Col sm={3} md={3} lg={3}></Col>
+       </Row>
+    </Carousel.Item>
+    <Carousel.Item>
+      <Row>
+        <Col sm={3} md={3} lg={3}></Col>
+        <Col sm={3} md={3} lg={3}>
+          <VideoCard title="Exercise 10" src="https://www.youtube.com/embed/EcA9f7jxBjc" />
+        </Col>
+        <Col sm={3} md={3} lg={3}></Col>
+      </Row>
+   </Carousel.Item>
+   <Carousel.Item>
+     <Row>
+       <Col sm={3} md={3} lg={3}></Col>
+       <Col sm={3} md={3} lg={3}>
+         <VideoCard title="Exercise 10" src="https://www.youtube.com/embed/AGkkicts6b0" />
+       </Col>
+       <Col sm={3} md={3} lg={3}></Col>
+     </Row>
+  </Carousel.Item>
          </Carousel>
-        
-         
-       
-     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </div>
         </Tab>
       </Tabs>
