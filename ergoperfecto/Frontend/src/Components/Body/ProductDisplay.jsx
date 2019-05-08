@@ -42,6 +42,7 @@ class ProductDisplay extends Component {
   componentWillMount=()=>{
     const images = this.importAll(require.context('../../products', false, /\.(png|jpe?g|svg)$/));
     const values= Object.values(images);
+    console.log("names are",values)
     this.setState({rows:values})
   }
   render() {

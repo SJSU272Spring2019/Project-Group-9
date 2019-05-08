@@ -61,6 +61,7 @@ class LoginSidebar extends Component {
          lastName: this.state.lastName, //Required
          email: this.state.email,  //required
          password: this.state.password,  //required
+         
        }
 
        endpoint = API.routes.register
@@ -115,8 +116,6 @@ class LoginSidebar extends Component {
     let   endpoint = API.routes.register
     const url = API.baseURL + endpoint
     axios.post(url, formData)
-
-  
   }
 
   signUpForm = () => {

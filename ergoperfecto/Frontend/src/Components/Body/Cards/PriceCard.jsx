@@ -9,8 +9,12 @@ class PriceCard extends Component {
   render() {
     return (
       <div>
-         <b>Actual Price:$100</b><br />
-        <b>Discounted Price:$50</b>
+         <b>Rate</b><br />
+         <FontAwesomeIcon icon="star" style={{color: "#d2d2d2"}}/>
+        <FontAwesomeIcon icon="star" style={{color: "#d2d2d2"}}/>
+        <FontAwesomeIcon icon="star" style={{color: "#d2d2d2"}}/>
+        <FontAwesomeIcon icon="star" style={{color: "#d2d2d2"}}/>
+        <FontAwesomeIcon icon="star" style={{color: "#d2d2d2"}}/>
       </div>
     );
   }

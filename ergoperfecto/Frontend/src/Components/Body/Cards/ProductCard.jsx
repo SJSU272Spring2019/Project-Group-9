@@ -17,7 +17,7 @@ class ProductCard extends Component {
       <Card className="responsiveCard">
         <Card.Img variant="top" src={this.props.src} style={{width:'100', height:'100', mode: 'fit'}}/>
         <Card.Body>
-          <Card.Title>{this.props.name}</Card.Title>
+        
           <Card.Text>
             <Ratings />
             <PriceCard />

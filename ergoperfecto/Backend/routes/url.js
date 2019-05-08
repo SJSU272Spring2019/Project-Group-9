@@ -48,8 +48,8 @@ module.exports = (router) => {
     /* login */
 
     /* profile */
-    router.get('/profile',profileController.profileGet)
-    router.post('/profile', upload.single("profile_pic"),profileController.profilePost)
+    router.get('/profile',verifyJWTToken,profileController.profileGet)
+    router.post('/profile',verifyJWTToken, upload.single("profile_pic"),profileController.profilePost)
     /* profile */
 
     /* evaluation */
@@ -59,9 +59,9 @@ module.exports = (router) => {
     /* evaluation */
 
     /* physio */
-    router.get('/exercises', verifyJWTToken,physioController.getExercises)
-    router.post('/exercises', verifyJWTToken,physioController.addExercise)
-    router.post('/deleteExercises',verifyJWTToken,physioController.deleteExercise)
+    router.get('/exercises',physioController.getExercises)
+    router.post('/exercises',physioController.addExercise)
+    router.post('/deleteExercises',physioController.deleteExercise)
     /* physio */
 
     /* healthcheck */

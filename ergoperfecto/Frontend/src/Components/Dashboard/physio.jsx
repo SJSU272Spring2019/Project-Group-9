@@ -220,7 +220,7 @@ class Physio extends Component {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
 
-        axios.post("http://localhost:3001/deleteexercise",data)
+        axios.post("http://localhost:3001/deleteExercises",data)
       }
 
       doRegex=(item)=> {
