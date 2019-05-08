@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
 import { GoogleLogout } from 'react-google-login';
 import axios from 'axios'
+import "../../Styles/Navigation.css"
 
 class Header extends Component {
 
@@ -11,21 +12,20 @@ class Header extends Component {
     this.state = {
       redirect: false
     }
+    this.logout = this.logout.bind(this);
   }
 
   logout = () => {
+    console.log("Logged out m aaya")
     axios.get("http://localhost:3001/logout", {headers: {
         token: localStorage.getItem("token")
       }})
-        .then((res) => {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user_id');
-          localStorage.removeItem('user_email');
-          this.setState({redirect: true});
-        }).catch(err => console.log("error!", err.response.data))
+    localStorage.clear();
+    this.setState({redirect: true});
   }
 
   loggedIn=()=> {
+    // console.log(localStorage.hasOwnProperty('token'))
     return localStorage.hasOwnProperty('token')
   }
 
@@ -38,12 +38,15 @@ class Header extends Component {
          </NavDropdown.Item>
          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
-         {/* <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item> */}
-         <GoogleLogout
-              buttonText="Logout"
-              onLogoutSuccess={this.logout}
-            >
-         </GoogleLogout>
+         <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
+         {/* <GoogleLogout className="googleButton"
+            buttonText="Logout"
+            onClick={this.logout}
+            onFailure={this.logout}
+            onLogoutSuccess={this.logout}
+            onLogoutFailure={this.logout}
+          >
+          </GoogleLogout> */}
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>
@@ -61,8 +64,6 @@ class Header extends Component {
     if(this.state.redirect) {
       redirectLogout = <Redirect to="/" />
     }
-
-    else dropdown = <></>
     return (
       <div>
         {redirectLogout}

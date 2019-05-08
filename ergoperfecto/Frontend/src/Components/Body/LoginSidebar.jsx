@@ -110,6 +110,7 @@ class LoginSidebar extends Component {
     console.log(this.state.redirect);
   }
   responseGoogle = (response) => {
+    console.log("response form google",response)
     // console.log("token",response.Zi.access_token);
     // console.log("email",response.profileObj.email);
     // console.log("firstName",response.profileObj.givenName);
