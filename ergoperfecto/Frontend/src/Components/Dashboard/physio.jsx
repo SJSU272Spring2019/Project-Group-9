@@ -120,99 +120,101 @@ class Physio extends Component {
       }
 
       componentDidMount() {
-      this.setState({
-        filtered: this.props.items
-      });
-      var data={
-        username:"kavya.chennoju@sjsu.edu"
-    }
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
-    axios.post("http://localhost:3001/exercises",data,{headers: {
-      token: localStorage.getItem("token")
-    }})
-            .then(response => {
 
-      console.log("Status Code : ",response.status);
-      if(response.status === 200){
-          console.log(response.data);
-          this.setState({
-              addedlist : response.data,
-          })
+        this.setState({
+          filtered: this.props.items
+        });
+        var data={
+          username:"kavya.chennoju@sjsu.edu"
+        }
+        axios.defaults.withCredentials = true;
+        //make a post request with the user data
+        axios.post("http://localhost:3001/getexercises",data)
+                .then(response => {
+
+
+          console.log("Status Code : ",response.status);
+          if(response.status === 200){
+              console.log(response.data);
+              // let d = response.data
+              // this.setState({
+              //     addedlist : d
+              // })
+          }
+        })
+        .catch()
+     }
+
+      componentWillReceiveProps(nextProps) {
+        this.setState({
+          filtered: nextProps.items
+        });
+
       }
-  })
-    .catch()
-    }
-
-    componentWillReceiveProps(nextProps) {
-      this.setState({
-        filtered: nextProps.items
-      });
-
-    }
 
       handleChange(e) {
-          // Variable to hold the original version of the list
-      let currentList = [];
-          // Variable to hold the filtered list before putting into state
-      let newList = [];
+              // Variable to hold the original version of the list
+          let currentList = [];
+              // Variable to hold the filtered list before putting into state
+          let newList = [];
 
-          // If the search bar isn't empty
-      if (e.target.value !== "") {
-              // Assign the original list to currentList
-        currentList = this.props.items;
+              // If the search bar isn't empty
+          if (e.target.value !== "") {
+                  // Assign the original list to currentList
+            currentList = this.props.items;
 
-              // Use .filter() to determine which items should be displayed
-              // based on the search terms
-        newList = currentList.filter(item => {
-                  // change current item to lowercase
-          const lc = item.toLowerCase();
-                  // change search term to lowercase
-          const filter = e.target.value.toLowerCase();
-                  // check to see if the current list item includes the search term
-                  // If it does, it will be added to newList. Using lowercase eliminates
-                  // issues with capitalization in search terms and search content
-          return lc.includes(filter);
-        });
-      } else {
-              // If the search bar is empty, set newList to original task list
-        newList = this.props.items;
+                  // Use .filter() to determine which items should be displayed
+                  // based on the search terms
+            newList = currentList.filter(item => {
+                      // change current item to lowercase
+              const lc = item.toLowerCase();
+                      // change search term to lowercase
+              const filter = e.target.value.toLowerCase();
+                      // check to see if the current list item includes the search term
+                      // If it does, it will be added to newList. Using lowercase eliminates
+                      // issues with capitalization in search terms and search content
+              return lc.includes(filter);
+            });
+          } else {
+                  // If the search bar is empty, set newList to original task list
+            newList = this.props.items;
+          }
+              // Set the filtered state based on what our rules added to newList
+          this.setState({
+            filtered: newList
+          });
       }
-          // Set the filtered state based on what our rules added to newList
-      this.setState({
-        filtered: newList
-      });
-    }
-    addtolist=(x)=>{
-      var newArray = this.state.addedlist.slice();
-      newArray.push(x);
-      console.log(newArray)
-      this.setState({addedlist:newArray})
-      var data={
-        username:"kavya.chennoju@sjsu.edu",
-        exercise:x
-    }
-    axios.defaults.withCredentials = true;
-        console.log("posting")
 
-    axios.post("http://localhost:3001/exercises",data,{headers: {
-      token: localStorage.getItem("token")
-    }})
-    .then(response => {
-     console.log(response.data,"errr")
-  })
-    .catch(err=>
-      console.log(err)
-      )
+      addtolist=(x)=>{
+        var newArray = this.state.addedlist.slice();
+        newArray.push(x);
+        console.log(newArray)
+        this.setState({addedlist:newArray})
+        var data={
+          username:"kavya.chennoju@sjsu.edu",
+          exercise:x
+        }
+        axios.defaults.withCredentials = true;
+            console.log("posting")
+        axios.post("http://localhost:3001/addexercise",data)
+        .then(response => {
+         console.log(response.data,"errr")
+        }).catch(err=>
+          console.log(err)
+          )
+      }
 
-    }
-    removefromlist=(x)=>{
-      var newArray = this.state.addedlist.slice();
-      newArray.pop(x);
-      newArray.splice( newArray.indexOf(x), -1 );
-      console.log(newArray)
-      this.setState({addedlist:newArray})
-    }
+      removefromlist=(x)=>{
+        var newArray = this.state.addedlist.slice();
+        newArray.pop(x);
+        newArray.splice( newArray.indexOf(x), -1 );
+        console.log(newArray)
+        this.setState({addedlist:newArray})
+      }
+
+      doRegex=(item)=> {
+        return ("" + item).replace(/ +/g)
+      }
 
       render() {
           return (
@@ -242,10 +244,11 @@ class Physio extends Component {
                                   </Link>
                               </td>
                               <td>
-                                  <span onClick={()=>this.addtolist(item)}> <FontAwesomeIcon icon="star" style={{color: '#fcdc06'}}/></span>
+                                  <span onClick={()=>this.addtolist(item)}> <FontAwesomeIcon icon="star" style={{color: '#fcdc06'}} /></span>
                               </td>
                             </tr>
-                          ))}
+                          ))
+                          }
                           </tbody>
                       </Table>
                 </div>
@@ -258,10 +261,10 @@ class Physio extends Component {
                           <ListGroup.Item>
                             <Row>
                               <Col md={1} lg={1}>
-                                <span onClick={()=>this.removefromlist(item)}> <FontAwesomeIcon icon="minus" style={{color: '#af3838'}}/></span>
+                                <span onClick={()=>this.removefromlist(item)}> <FontAwesomeIcon icon="minus" style={{color: '#af3838'}} /></span>
                               </Col>
                               <Col md={11} lg={11}>
-                                <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
+                                <Link to={"/singleitem/" + this.doRegex()}>
                                   <strong>{item}</strong>
                                 </Link>
                               </Col>

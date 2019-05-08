@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Jumbotron, Row, Col, Container, ListGroup } from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 import Profile from './Profile';
 import Evaluation from './Evaluation';
 import RecomendedProducts from './RecomendedProducts';
@@ -15,7 +16,9 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPageId: 0
+      currentPageId: 0,
+      pages: [0,1,2,3],
+      titles: ["Profile", "Evaluations", "Physical Therapy", "Recommended Products"]
     }
   }
 
@@ -32,11 +35,21 @@ class Dashboard extends Component {
     })
   }
 
+  isActive = () => {
+
+  }
+
+  loggedIn=()=> {
+    return localStorage.hasOwnProperty('token')
+  }
 
   render() {
     let page;
+    let mainPage = <></>
     const id = this.state.currentPageId;
-
+    if (!this.loggedIn()) {
+      mainPage = <Redirect to="/productdisplay" />
+    }
     switch (id) {
       case 0:
         page = <Profile></Profile>
@@ -44,15 +57,18 @@ class Dashboard extends Component {
       case 1:
         page = <Evaluation></Evaluation>
         break;
-        case 2:
+      case 2:
         page = <Physio></Physio>
         break;
+      case 3:
+        page = <RecomendedProducts></RecomendedProducts>
+        break;
       default:
-
     }
 
     return (
       <Container fluid>
+      {mainPage}
         <Row>
           <Col md={2} lg={2}>
             <h1>Dashboard</h1>
@@ -61,21 +77,13 @@ class Dashboard extends Component {
         <Row>
           <Col xs={12} sm={12} md={12} lg={4} xl={3}>
               <ListGroup>
-                <ListGroup.Item>
-                  <a href="#productrecomendations" onClick={() => this.handleLink(2)}>Product Recommendations</a>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <a href="#">Video Recommendations</a>
-                </ListGroup.Item>
-                <ListGroup.Item >
-                  <a href="#profile" onClick={() => this.handleLink(0)}>Profile</a>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <a href="#evaluation" onClick={() => this.handleLink(1)}>Evaluation</a>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <a href="#physicaltherapy" onClick={() => this.handleLink(2)}>PhysioTherapy</a>
-                </ListGroup.Item>
+              {this.state.pages.map(
+                item => (
+                  <ListGroup.Item>
+                     <a href="#" key={item.toString()} onClick={() => this.handleLink(item)}>{this.state.titles[item]}</a>
+                  </ListGroup.Item>
+                )
+              )}
               </ListGroup>
           </Col>
           <br />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Button, Row, Col, Form, Alert} from 'react-bootstrap';
+import {Redirect, withRouter} from 'react-router-dom'
 import AlertMessage from './AlertMessage'
 import API from '../../api/API'
 import axios from 'axios';
@@ -8,6 +9,7 @@ class LoginSidebar extends Component {
     constructor(props) {
       super(props);
       this.state = {
+        redirect: false,
         signUp: 1,
         error: false,
         errorMessage: "",
@@ -78,6 +80,10 @@ class LoginSidebar extends Component {
         localStorage.setItem('user_email',response.data.user.email)
         localStorage.setItem('user_name',response.data.user.name)
         this.clearForm();
+        this.setState({
+          redirect: true
+        })
+
       })
       .catch(err => {
         console.log("error!", err.message)
@@ -89,9 +95,14 @@ class LoginSidebar extends Component {
     // this.setState({ validated: true });
    }
 
-  signUpForm = () => {
-    return (
+   setRedirect = () => {
 
+    console.log(this.state.redirect);
+  }
+
+  signUpForm = () => {
+
+    return (
 
       <Form id="registerForm" onSubmit={e => this.handleSubmit(e)}>
       <Form.Group>
@@ -126,6 +137,7 @@ class LoginSidebar extends Component {
         </Col>
       </Row>
     </Form>
+
     );
   }
 
@@ -162,19 +174,24 @@ class LoginSidebar extends Component {
     return(  <AlertMessage message={this.state.errorMessage} />)
   }
 
-
   render() {
     let myForm;
     let alert;
+    let dashboard
     if(this.state.signUp == 1)
       myForm = this.signUpForm();
     else
       myForm = this.loginForm();
     if (this.state.error)
       alert = this.renderErrorMessage();
+    if(this.state.redirect == true){
+      dashboard = <Redirect to="/dashboard" />
+    } else{
+        dashboard = <></>
+    }
     return (
       <>
-
+      {dashboard}
       {alert}
       <Card style={{ width: '20rem' }}>
         <Card.Body>

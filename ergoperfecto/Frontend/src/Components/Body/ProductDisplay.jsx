@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import { Jumbotron, Row, Col, Container } from 'react-bootstrap';
-
+import '../../Styles/Pagination.css'
 import Pagination from '../Navigation/Pagination';
 import ProductCard from '../Body/Cards/ProductCard';
 import LoginSidebar from '../Body/LoginSidebar';
@@ -48,8 +48,9 @@ class ProductDisplay extends Component {
     const { rows, currentrows, currentPage, totalPages } = this.state;
     const totalrows = rows.length;
     let nav=null;
-    if(this.state.goto===true)
-    nav=<Redirect to= "/login"/>
+    {//if(this.state.goto===true)
+      //nav=<Redirect to= "/login"/>
+    }
     if (totalrows === 0) return null;
     return (
       <div>
@@ -57,20 +58,18 @@ class ProductDisplay extends Component {
         {nav}
         <Container fluid>
           <Row>
-            <Col md={9} lg={9}>
+            <Col xs={12} sm={12} md={12} lg={9}>
             <Jumbotron>
-              <div id="page">
-                    { currentPage && (
-                       <div></div>
-                      ) }
-                      <Pagination totalRecords={totalrows} pageLimit={5} pageNeighbours={1} onPageChanged={this.onPageChanged} />
-              </div>
-              <Row>
+            <div id="page">
+                  { currentPage && (
+                     <div></div>
+                    ) }
+                    <Pagination totalRecords={totalrows} pageLimit={6} pageNeighbours={1} onPageChanged={this.onPageChanged} />
+            </div>
               {currentrows.map(member=><ProductCard src={member} name="Product Card" />)}
-              </Row>
             </Jumbotron>
             </Col>
-            <Col md={3} lg={3} >
+            <Col sm ={12} md={12} lg={3} >
               <LoginSidebar />
             </Col>
 

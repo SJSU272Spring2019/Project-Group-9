@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import {Card, Button, Row, Col} from 'react-bootstrap';
 import Ratings from './Ratings';
 import PriceCard from './PriceCard'
+import '../../../Styles/Pagination.css'
+
 class ProductCard extends Component {
 
   constructor(props) {
@@ -12,8 +14,8 @@ class ProductCard extends Component {
 
   render() {
     return (
-      <Card style={{ width: '16rem', margin: '20px', textAlign: 'center', display: 'inline-block' }}>
-        <Card.Img variant="top" src={this.props.src} style={{width:'1000', height:'100', mode: 'fit'}}/>
+      <Card className="responsiveCard">
+        <Card.Img variant="top" src={this.props.src} style={{width:'100', height:'100', mode: 'fit'}}/>
         <Card.Body>
           <Card.Title>{this.props.name}</Card.Title>
           <Card.Text>
