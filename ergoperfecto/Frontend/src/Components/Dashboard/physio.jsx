@@ -82,7 +82,7 @@ class Physio extends Component {
 
     render() {
       return (
-        <div className="content">
+        <div >
           <Row>
             <Col md={10} lg={10}>
             <Form.Control
@@ -92,6 +92,7 @@ class Physio extends Component {
                   placeholder="Something that needs ot be done..."
                 />
               </Col>
+              <br /><br />
               <Col md={2} lg={2}>
                 <Button  onClick={this.addItem}>
                   Add Item
@@ -99,7 +100,6 @@ class Physio extends Component {
               </Col>
                 <List items={this.state.list} delete={this.removeItem} />
             </Row>
-            <hr />
             <section className="section">
               <form className="form" id="addItemForm">
 
@@ -137,7 +137,7 @@ class Physio extends Component {
 
           console.log("Status Code : ",response.status);
           if(response.status === 200){
-           
+
 
               let d = response.data
               if(response.data.result[0]!=null)
@@ -234,8 +234,8 @@ class Physio extends Component {
             <Container fluid>
             <Row>
               <Col sm={12} md={10} lg={6}>
-                <div class="dashboard-content">
-                      <Table  striped hover size="sm">
+                <div >
+                      <Table  striped bordered hover size="md">
                         <thead>
                           <tr>
                             <th>Exercise</th>
@@ -267,7 +267,7 @@ class Physio extends Component {
                 </div>
               </Col>
               <Col sm={26} md={10} lg={6}>
-                <div class="dashboard-content">
+                <div>
                   <h4>Favorites</h4>
                     <ListGroup defaultActiveKey="#link1">
                      {this.state.addedlist.map (item=>

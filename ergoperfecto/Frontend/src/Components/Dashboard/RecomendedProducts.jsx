@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
-import {Row, Col, Form, Button, Table, Modal, Spinner} from 'react-bootstrap';
+import {Row, Col, Tabs, Tab} from 'react-bootstrap';
 
 import API from '../../api/API'
 import axios from 'axios'
@@ -8,6 +8,9 @@ import axios from 'axios'
 class RecomendedProducts extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      key: 'products',
+    };
   }
 
   componentWillMount=()=>{
@@ -16,9 +19,14 @@ class RecomendedProducts extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Recomended Products</h3>
-      </div>
+      <Tabs id="controlled-tab-example" activeKey={this.state.key} onSelect={key => this.setState({ key })}>
+        <Tab eventKey="products" title="Products">
+
+        </Tab>
+        <Tab eventKey="exercises" title="Exercises">
+
+        </Tab>
+      </Tabs>
     );
   }
 }
