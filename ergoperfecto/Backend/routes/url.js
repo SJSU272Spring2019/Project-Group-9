@@ -48,20 +48,25 @@ module.exports = (router) => {
     /* login */
 
     /* profile */
-    router.get('/profile', verifyJWTToken,profileController.profileGet)
-    router.post('/profile', verifyJWTToken,upload.single("profile_pic"),profileController.profilePost)
+    router.get('/profile',profileController.profileGet)
+    router.post('/profile', upload.single("profile_pic"),profileController.profilePost)
     /* profile */
 
     /* evaluation */
-    router.get('/questions', verifyJWTToken,evaluationController.questionsGet)
-    router.post('/answers', verifyJWTToken,evaluationController.saveAnswers)
-    router.get('/sections', verifyJWTToken,evaluationController.getEvaluationForRecommendation)
+    router.get('/questions', evaluationController.questionsGet)
+    router.post('/answers', evaluationController.saveAnswers)
+    router.get('/sections',evaluationController.getEvaluationForRecommendation)
     /* evaluation */
 
     /* physio */
     router.get('/exercises', verifyJWTToken,physioController.getExercises)
     router.post('/exercises', verifyJWTToken,physioController.addExercise)
+    router.post('/deleteExercises',verifyJWTToken,physioController.deleteExercise)
     /* physio */
+
+    /* healthcheck */
+    router.get('/healthcheck',loginController.healthcheck)
+    /* healthcheck */
 
     return router;
 }

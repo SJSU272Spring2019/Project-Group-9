@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
-
+import { GoogleLogout } from 'react-google-login';
 
 class Header extends Component {
 
@@ -33,6 +33,11 @@ class Header extends Component {
          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
          <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
+         <GoogleLogout
+      buttonText="Logout"
+      onLogoutSuccess={this.logout}
+    >
+    </GoogleLogout>
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>

@@ -17,4 +17,8 @@ module.exports = {
         console.log("Session deleted.")
         return res.status(200)
     },
+
+    healthcheck : (req,res) => {
+        return res.status(200)
+    },
 }

@@ -41,6 +41,22 @@ let addExercise = (user, msg, callback) => {
     }
 }
 
+let deleteExercise = (user, msg, callback) => {
+    try {
+        exercise.update( {"username":msg.username},{$pull:{exercises:msg.exercise}})
+        .then((exceriseObj) => {
+            callback(null, {status: 200});
+        }).catch((error) => {
+            console.log("Error",error);
+            callback({"success":false,"message":"Invalid Input! Please try again."},null)
+        })
+    }
+    catch(error){
+        console.log("Error",error);
+        callback({"success":false,"message":"Invalid Input! Please try again."},null)
+    }
+}
+
 
 function handle_request(data,callback){
     msg = data.msg
@@ -53,6 +69,9 @@ function handle_request(data,callback){
             break;
         case 'addExercise' :
             addExercise(user,msg,callback);
+            break;
+        case 'deleteExercise' :
+            deleteExercise(user,msg,callback);
             break;
 	}
 
