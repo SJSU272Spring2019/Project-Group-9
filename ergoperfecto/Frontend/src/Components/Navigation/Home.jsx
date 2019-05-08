@@ -15,7 +15,10 @@ class Home extends Component {
     super(props, context);
 
     this.state = {
-      show: false
+      show: false,
+      times: [0,1,2],
+      selectedTime: 0,
+      titles: ["Wednesday May 8th, 6:15pm", "Wednesday May 8th, 7:15pm", "Thursday May 9th, 8:00am"]
     }
 
     this.handleShow = (i) => {
@@ -26,6 +29,14 @@ class Home extends Component {
       this.setState({ show: false });
     };
   }
+
+  handleLink=(i)=> {
+    console.log(i);
+    this.setState({
+      selectedTime: i
+    })
+  }
+
 
   handleSubmit(event) {
     let formData;
@@ -60,6 +71,7 @@ class Home extends Component {
   }
 
   render() {
+    const selectedText = this.state.titles[this.state.selectedTime]
     return (
       <>
       <Header />
@@ -69,12 +81,12 @@ class Home extends Component {
        size="xl"
        aria-labelledby="example-custom-modal-styling-title"
        >
-         <Modal.Header closeButton>
-           <Modal.Title id="example-custom-modal-styling-title">
-            Create an Account & Schedule a Consultation Appointment
-           </Modal.Title>
-         </Modal.Header>
-         <Modal.Body>
+       <Modal.Header closeButton>
+         <Modal.Title id="example-custom-modal-styling-title">
+          Create an Account & Schedule a Consultation Appointment
+         </Modal.Title>
+       </Modal.Header>
+       <Modal.Body>
          <Form id="registerForm" onSubmit={e => this.handleSubmit(e)}>
          <Form.Group>
            <Form.Label>First Name</Form.Label>
@@ -97,13 +109,16 @@ class Home extends Component {
          </Form.Group>
          <Row>
           <Col sm={12} md={12} lg={12}>
-           <ListGroup as="ul" style={{width: "100%"}}>
-             <ListGroup.Item as="li" active>
-               Wednesday May 8th, 6:15pm
-             </ListGroup.Item>
-             <ListGroup.Item as="li">Wednesday May 8th, 7:15pm</ListGroup.Item>
-             <ListGroup.Item as="li">Thursday May 9th, 8:00am</ListGroup.Item>
-            </ListGroup>
+            <h5>You've Selected {selectedText}</h5>
+           <ListGroup as="ul">
+           {this.state.times.map(
+             item => (
+               <ListGroup.Item >
+                  <a href="#" key={item.toString()} onClick={() => this.handleLink(item)}>{this.state.titles[item]}</a>
+               </ListGroup.Item>
+             )
+           )}
+           </ListGroup>
           </Col>
          </Row>
          <br /><br />
@@ -114,8 +129,7 @@ class Home extends Component {
          </Row>
          <br />
        </Form>
-
-         </Modal.Body>
+       </Modal.Body>
       </Modal>
       <div className="homePage">
         <br /><br />

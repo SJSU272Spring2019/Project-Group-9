@@ -4,6 +4,38 @@ const User = require('../models/userSchema')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const googleLoginPassword = require("../constants").googleLoginPassword;
+
+let gooleLoginController = (userRequestData) => {
+    return new Promise(async function (resolve, reject) {
+        console.log("----userRequestData",userRequestData)
+        let output = {}
+        User.findOne({email:userRequestData.email})
+        .then((userObj) => {
+            if (userObj === null){
+                //creating new user
+                let db_obj = new User(userRequestData)
+                db_obj.save().then(result => {
+                    let token = jwt.sign({id:result.id,email:result.email}, 'jwtSecretKey', { expiresIn: '30 days' });
+                    delete result.password
+                    output["token"] = token
+                    output["user"] = result
+                    return resolve(output);
+                }).catch(err => {   
+                   return reject({"success":false,"message":"Something went wrong! Please try agin later"})
+                })
+            }
+            else{
+                // user alreay present
+                let token = jwt.sign({id:userObj.id,email:userObj.email}, 'jwtSecretKey', { expiresIn: '30 days' });
+                delete userObj.password
+                output["token"] = token
+                output["user"] = userObj
+                return resolve(output);
+            }
+        }).catch(reject);
+    });
+}
 
 //api to signup
 let registerPost = (msg, callback) => {
@@ -20,10 +52,17 @@ let registerPost = (msg, callback) => {
             profile_pic : Joi.string().allow(null,''),
         });
         try {
+            let googleOAuth = msg.googleOAuth
+            let password = null
+            if (googleOAuth){
+                password = googleLoginPassword
+            }
+            else{
+                password = msg.password
+            }
             let firstName =msg.firstName;
             let lastName = msg.lastName;
             let email =msg.email;
-            let password =msg.password;
             let city =msg.city || null;
             let state = msg.state || null;
             let zip = msg.zip || null;
@@ -36,33 +75,39 @@ let registerPost = (msg, callback) => {
                     callback({"success":false,"message":"Invalid Input! Please try again."}, null)
                 }
                 else{
-                    bcrypt.hash(password, saltRounds, function(err, hash) {
+                    bcrypt.hash(password, saltRounds, async function(err, hash) {
                         if(err){
                             callback({"success":false,"message":"Something went wrong! Please try agin later"}, null)
                         }
-                        User.findOne({ email: email }, function(user_error, user_obj) {
-                            if (user_error){
-                                callback({"success":false,"message":"Something went wrong! Please try agin later"}, null)
-                            }
-                            if(user_obj !== null){
-                                callback({"success":false,"message":"User with same email already present"}, null)
-                            }
-                            else{
-                                let db_obj = new User({ firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic})
-                                db_obj.save().then(result => {
-                                    console.log("New User registered successfully\n",result);
-                                    let token = jwt.sign({id:result.id,email:result.email}, 'jwtSecretKey', { expiresIn: '30 days' });
-                                    delete result.password
-                                    console.log("User logged in\nSending 200 with JWT\n\n\n\n",token)
-                                    callback(null,{"success":true,"message":"Sucessfully logged in","token":token,user:result})
-                                    // callback(null,{"success":true,"message":"Registration successfull!"})
-                                }).catch(err => {
-                                    // console.log("err-----\n",err);
-                                    callback({"success":false,"message":"Something went wrong! Please try agin later"},null)
-                                })
-                            }
-                        });
-                        
+                        let userRequestData = { firstName: firstName, lastName: lastName, email:email, password:hash,city:city,state:state,zip:zip,phone_number:phone_number,profile_pic:profile_pic}
+                        if (googleOAuth){
+                            let userResult = await gooleLoginController(userRequestData);
+                            console.log("----------------------Returning to frontend")
+                            callback(null,{"success":true,"message":"Sucessfully logged in","token":userResult.token,user:userResult.user})
+                        }else{
+                            User.findOne({ email: email }, function(user_error, user_obj) {
+                                if (user_error){
+                                    callback({"success":false,"message":"Something went wrong! Please try agin later"}, null)
+                                }
+                                if(user_obj !== null){
+                                    callback({"success":false,"message":"User with same email already present"}, null)
+                                }
+                                else{
+                                    let db_obj = new User(userRequestData)
+                                    db_obj.save().then(result => {
+                                        console.log("------------New User registered successfully\n",result);
+                                        let token = jwt.sign({id:result.id,email:result.email}, 'jwtSecretKey', { expiresIn: '30 days' });
+                                        delete result.password
+                                        console.log("User logged in\nSending 200 with JWT\n\n\n\n",token)
+                                        callback(null,{"success":true,"message":"Sucessfully logged in","token":token,user:result})
+                                        // callback(null,{"success":true,"message":"Registration successfull!"})
+                                    }).catch(err => {
+                                        // console.log("err-----\n",err);
+                                        callback({"success":false,"message":"Something went wrong! Please try agin later"},null)
+                                    })
+                                }
+                            });
+                        }
                     });
                 }
             });

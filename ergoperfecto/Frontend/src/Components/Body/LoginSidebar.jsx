@@ -5,6 +5,7 @@ import AlertMessage from './AlertMessage'
 import API from '../../api/API'
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import "../../Styles/Navigation.css"
 
 class LoginSidebar extends Component {
     constructor(props) {
@@ -57,6 +58,7 @@ class LoginSidebar extends Component {
      event.preventDefault();
      if(this.state.signUp === 1) {
        formData = {
+          googleOAuth : false,
          firstName: this.state.firstName, //required
          lastName: this.state.lastName, //Required
          email: this.state.email,  //required
@@ -76,16 +78,22 @@ class LoginSidebar extends Component {
      axios.post(url, formData)
 
       .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("token",response.data.token);
-        localStorage.setItem('user_id',response.data.user.id)
-        localStorage.setItem('user_email',response.data.user.email)
-        localStorage.setItem('user_name',response.data.user.name)
-        this.clearForm();
-        this.setState({
-          redirect: true
-        })
-
+        if(response.data.success){
+          localStorage.setItem("token",response.data.token);
+          localStorage.setItem('user_id',response.data.user.id)
+          localStorage.setItem('user_email',response.data.user.email)
+          localStorage.setItem('user_name',response.data.user.name)
+          this.clearForm();
+          this.setState({
+            redirect: true
+          })
+        }
+        else{
+          this.setState({
+            error: true,
+            errorMessage: response.data.message
+          })
+        }
       })
       .catch(err => {
         console.log("error!", err.message)
@@ -105,17 +113,44 @@ class LoginSidebar extends Component {
     console.log("token",response.Zi.access_token);
     console.log("email",response.profileObj.email);
     console.log("firstName",response.profileObj.givenName);
-    console.log("lastName",response.profileObj.familyName); 
+    console.log("lastName",response.profileObj.familyName);
     this.setState({redirect:true})
     let formData = {
+      googleOAuth : true,
       firstName: response.profileObj.givenName, //required
       lastName: response.profileObj.familyName, //Required
       email: response.profileObj.email,  //required
-      password: "googlelogin",  //required
+      password: "googlelogin",  //required -- placeholder actual password string taken from backend
     }
     let   endpoint = API.routes.register
     const url = API.baseURL + endpoint
     axios.post(url, formData)
+    .then((response) => {
+      if(response.data.success){
+        localStorage.setItem("token",response.data.token);
+        localStorage.setItem('user_id',response.data.user.id)
+        localStorage.setItem('user_email',response.data.user.email)
+        localStorage.setItem('user_name',response.data.user.name)
+        this.clearForm();
+        this.setState({
+          redirect: true
+        })
+      }
+      else{
+        this.setState({
+          error: true,
+          errorMessage: response.data.message
+        })
+      }
+    })
+    .catch(err => {
+      console.log("error!", err.message)
+      this.setState({
+        error: true,
+        errorMessage: err.message
+      })
+    })
+
   }
 
   signUpForm = () => {
@@ -177,15 +212,7 @@ class LoginSidebar extends Component {
         <Col md={12} lg={12}>
         <Button variant="success" type="submit" style={{width: '100%'}}>Login</Button>
         </Col>
-        <Col md={12} lg={12}>
-        <GoogleLogin
-    clientId="811696992821-kqv2bdca8lrnuvq6mqr5vp8lggvv5inr.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={this.responseGoogle}
-    onFailure={this.responseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />
-        </Col>
+
       </Row>
       <br />
       <Row>
@@ -229,6 +256,18 @@ class LoginSidebar extends Component {
             <Col md={12} lg={12}>
               {myForm}
             </Col>
+          </Row>
+          <br />
+          <Row>
+          <Col md={12} lg={12}>
+            <GoogleLogin className="googleButton"
+              clientId="811696992821-kqv2bdca8lrnuvq6mqr5vp8lggvv5inr.apps.googleusercontent.com"
+              buttonText="Use Google Account"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+          </Col>
           </Row>
         </Card.Body>
       </Card>

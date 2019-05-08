@@ -81,9 +81,9 @@ class Profile extends Component {
         email: this.state.email,  //required
         password: this.state.password,  //required
       }
-      axios.post("http://localhost:3001/profile",{headers: {
+      axios.post("http://localhost:3001/profile",formData, {headers: {
         token: localStorage.getItem("token")
-      }}, formData)
+      }})
         .then((res) => {
           console.log(res.data)
           this.clearForm()

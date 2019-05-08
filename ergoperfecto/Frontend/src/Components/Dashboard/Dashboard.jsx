@@ -92,9 +92,9 @@ class Dashboard extends Component {
           </Col>
           <br />
           <Col sm={12} md={12} lg={8} xl={9}>
-            <div class="dashboard-content">
+            <Jumbotron>
               {page}
-            </div>
+            </Jumbotron>
           </Col>
         </Row>
       </Container>

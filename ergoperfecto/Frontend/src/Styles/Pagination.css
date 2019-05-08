@@ -41,17 +41,17 @@
   textAlign: center;
   display: inline-block !important;
 }
-/*
+
 @media all and (min-width: 1281px) {
   .responsiveCard {
-    width: 275px;
+    width: 250px;
     margin: 30px;
   }
 }
 
 @media all and (min-width: 1024px) and (max-width: 1280px) {
   .responsiveCard {
-    width: 225px;
+    width: 220px;
     margin: 20px;
   }
 }
@@ -59,24 +59,17 @@
 @media all and (min-width: 768px) and (max-width: 1024px) {
   .responsiveCard {
     width: 200px;
-    margin: 25px;
+    margin: 20px;
   }
 
 }
 
 @media all and (min-width: 480px) and (max-width: 768px) {
   .responsiveCard {
-    width: 200px;
+    width: 400px;
     margin: 18px;
   }
   #page {
     margin-left: -170px;
   }
 }
-
-@media all and (max-width: 480px) {
-  .responsiveCard {
-    width: 90%;
-    margin: 20px;
- }
-}*/

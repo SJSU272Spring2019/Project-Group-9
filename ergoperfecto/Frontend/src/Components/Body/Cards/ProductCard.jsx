@@ -14,7 +14,8 @@ class ProductCard extends Component {
 
   render() {
     return (
-      <Card className="responsiveCard">
+      <Card className="responsiveCard" style={{borderRadius: '20px'}}>
+        <br/>
         <Card.Img variant="top" src={this.props.src} style={{width:'100', height:'100', mode: 'fit'}}/>
         <Card.Body>
         
