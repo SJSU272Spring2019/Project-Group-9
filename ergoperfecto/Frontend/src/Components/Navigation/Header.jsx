@@ -32,7 +32,7 @@ class Header extends Component {
          </NavDropdown.Item>
          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
-         <NavDropdown.Item href="#action/3.4" onClick={this.logout}>Logout</NavDropdown.Item>
+         <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>
@@ -50,21 +50,18 @@ class Header extends Component {
     return (
       <div>
       <Navbar bg="light" expand="lg" >
-        <Navbar.Brand href="#home">✅ ErgoPerfecto</Navbar.Brand>
+        <Navbar.Brand href="/">✅ ErgoPerfecto</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/productdisplay">Products</Nav.Link>
             <Nav.Link href="/videodisplay">Videos</Nav.Link>
+            <Nav.Link href="/chatbot">Chat With Us</Nav.Link>
           </Nav>
-          <Nav className="mr-auto">
-            <Nav.Link href="/chatbot">ChatWithUs</Nav.Link>
-          </Nav>
+
           {dropdown}
         </Navbar.Collapse>
       </Navbar>
-
-
       </div>
     );
   }

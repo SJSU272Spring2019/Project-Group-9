@@ -3,6 +3,7 @@ import { Jumbotron, Row, Col, Container, ListGroup } from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import Profile from './Profile';
 import Evaluation from './Evaluation';
+import Header from '../Navigation/Header'
 import RecomendedProducts from './RecomendedProducts';
 import Physio from './physio'
 import '../../Styles/Dashboard.css';
@@ -67,6 +68,9 @@ class Dashboard extends Component {
     }
 
     return (
+      <>
+      <Header />
+      <br />
       <Container fluid>
       {mainPage}
         <Row>
@@ -94,6 +98,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
       </Container>
+      </>
     );
   }
 }

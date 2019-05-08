@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import { Jumbotron, Row, Col, Container } from 'react-bootstrap';
 import Pagination from '../Navigation/Pagination';
+import Header from '../Navigation/Header';
 import VideoCard from '../Body/Cards/VideoCard';
 import LoginSidebar from '../Body/LoginSidebar';
 
@@ -33,7 +34,7 @@ class VideoDisplay extends Component {
     }
 
     importAll=(r)=> {
-      let videos = require('../../video.json');    
+      let videos = require('../../video.json');
       return videos;
     }
 
@@ -52,6 +53,8 @@ class VideoDisplay extends Component {
       if (totalrows === 0) return null;
       return (
         <div>
+        <Header />
+        <br />
           {nav}
           <Container fluid>
             <Row>

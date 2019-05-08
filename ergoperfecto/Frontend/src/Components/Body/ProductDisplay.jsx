@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import { Jumbotron, Row, Col, Container } from 'react-bootstrap';
 import '../../Styles/Pagination.css'
+import Header from '../Navigation/Header';
 import Pagination from '../Navigation/Pagination';
 import ProductCard from '../Body/Cards/ProductCard';
 import LoginSidebar from '../Body/LoginSidebar';
@@ -54,6 +55,7 @@ class ProductDisplay extends Component {
     if (totalrows === 0) return null;
     return (
       <div>
+        <Header />
       <br />
         {nav}
         <Container fluid>

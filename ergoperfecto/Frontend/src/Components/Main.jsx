@@ -19,7 +19,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Route path = "/" component = {Header} />
+        <Route exact path = "/" component = {Home} />
         <Route path = "/productdisplay" component = {ProductDisplay} />
         <Route path = "/videodisplay" component = {VideoDisplay} />
         <Route path = "/login" component = {Login} />

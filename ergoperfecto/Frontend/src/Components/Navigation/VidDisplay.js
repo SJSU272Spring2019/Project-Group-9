@@ -11,7 +11,7 @@ class VidDisplay extends Component {
 
     this.state = {
       rows:[],
-    
+
     }
 
     }
@@ -35,28 +35,10 @@ class VidDisplay extends Component {
   render() {
 
     return (
-      <div>
-      
-        <Container fluid>
-          <Row>
-            <Col sm={9} md={9} lg={8}>
-            <Jumbotron>
-            
-            
-              <Row>
-              {this.state.rows.slice(0, 4).map( (member) => {
-                return (<VideoCard title={member["title"]} src={member["src"]}/>)
-              }) }
-              </Row>
-            </Jumbotron>
-            </Col>
-            <Col >
-      
-          
-          </Col>
-           
-          </Row>
-        </Container>
+      <div style={{marginLeft: '10'}}>
+      {this.state.rows.slice(0, 4).map( (member) => {
+        return (<VideoCard title={member["title"]} src={member["src"]}/>)
+      }) }
       </div>
     );
   }
