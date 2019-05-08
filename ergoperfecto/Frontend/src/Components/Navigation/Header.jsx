@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 import {Container, Navbar, Nav, NavDropdown, Form, FormControl, Button, Badge} from 'react-bootstrap';
 import { GoogleLogout } from 'react-google-login';
+import axios from 'axios'
+import "../../Styles/Navigation.css"
 
 class Header extends Component {
 
@@ -10,16 +12,20 @@ class Header extends Component {
     this.state = {
       redirect: false
     }
+    this.logout = this.logout.bind(this);
   }
 
   logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('user_email');
+    console.log("Logged out m aaya")
+    axios.get("http://localhost:3001/logout", {headers: {
+        token: localStorage.getItem("token")
+      }})
+    localStorage.clear();
     this.setState({redirect: true});
   }
 
   loggedIn=()=> {
+    // console.log(localStorage.hasOwnProperty('token'))
     return localStorage.hasOwnProperty('token')
   }
 
@@ -28,16 +34,18 @@ class Header extends Component {
       <Nav>
        <NavDropdown title="My Account" id="basic-nav-dropdown">
          <NavDropdown.Item href="/dashboard">
-           Dashboard <Badge variant="info">2</Badge>
+           Dashboard
          </NavDropdown.Item>
-         <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
          <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
-         <GoogleLogout
-      buttonText="Logout"
-      onLogoutSuccess={this.logout}
-    >
-    </GoogleLogout>
+         {/* <GoogleLogout className="googleButton"
+            buttonText="Logout"
+            onClick={this.logout}
+            onFailure={this.logout}
+            onLogoutSuccess={this.logout}
+            onLogoutFailure={this.logout}
+          >
+          </GoogleLogout> */}
        </NavDropdown>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </Nav>
@@ -51,9 +59,13 @@ class Header extends Component {
       dropdown = this.dashboard()
     }
 
-    else dropdown = <></>
+    let redirectLogout = <></>
+    if(this.state.redirect) {
+      redirectLogout = <Redirect to="/" />
+    }
     return (
       <div>
+        {redirectLogout}
       <Navbar bg="light" expand="lg" >
         <Navbar.Brand href="/">✅ ErgoPerfecto</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

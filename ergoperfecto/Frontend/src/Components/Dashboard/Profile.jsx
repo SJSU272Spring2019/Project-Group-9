@@ -81,7 +81,8 @@ class Profile extends Component {
         email: this.state.email,  //required
         password: this.state.password,  //required
       }
-      axios.post("http://localhost:3001/profile",formData, {headers: {
+      const url = API.baseURL + API.profile;
+      axios.post(url ,formData, {headers: {
         token: localStorage.getItem("token")
       }})
         .then((res) => {
