@@ -18,6 +18,7 @@ class Home extends Component {
       show: false,
       times: [0,1,2],
       selectedTime: 0,
+      redirect: false,
       titles: ["Wednesday May 8th, 6:15pm", "Wednesday May 8th, 7:15pm", "Thursday May 9th, 8:00am"]
     }
 
@@ -35,6 +36,10 @@ class Home extends Component {
     this.setState({
       selectedTime: i
     })
+  }
+
+  clearForm = () => {
+    document.getElementById("registerForm").reset();
   }
 
 
@@ -70,11 +75,21 @@ class Home extends Component {
    // this.setState({ validated: true });
   }
 
+  onChange = (e) => {
+     this.setState({ [e.target.name]: e.target.value, error: false });
+  }
+
+
   render() {
+    let redirect = <></>
     const selectedText = this.state.titles[this.state.selectedTime]
+    if(this.state.redirect == true) {
+      redirect = <Redirect to="dashboard" />
+    }
     return (
       <>
       <Header />
+      {redirect}
       <Modal
        show={this.state.show}
        onHide={this.handleHide}
@@ -163,9 +178,9 @@ class Home extends Component {
                 Necessities for an ergonomic office and workstation should include: an adjustable ergonomic chair, a computer input device and keyboard that helps maintain natural posture, proper lighting to avoid eye strain, and footrest so legs and feet are in a comfortable position.
                 Get them with a much discounted price at ErgoPerfecto.
                 </Card.Text>
-                <Button variant="primary">Set Up your workstation <br /> Become ErgoPerfecto</Button>
+                <Button variant="primary">Set up your workstation</Button>
                 <br /><br />
-                <Button variant="info" onClick={this.handleShow}>Schedule A Free Consultation</Button>
+                <Button variant="info" onClick={this.handleShow}>Schedule a free consultation</Button>
               </Card.Body>
             </Card>
             </Col>

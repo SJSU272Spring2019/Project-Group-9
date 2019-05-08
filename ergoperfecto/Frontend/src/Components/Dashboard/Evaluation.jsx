@@ -80,29 +80,7 @@ class Evaluation extends Component {
             {buttons}
           </Col>
         </Row>
-        <Row>
-          <Col md={12} lg={12}>
-            <h3>Evaluations</h3>
-            <Row>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td >dd/mm/yyyy</td>
-                  <td><Button variant="info" type="submit">View</Button></td>
-                </tr>
-              </tbody>
-            </Table>
-            </Row>
-            <Row>
-              <Button variant="primary" type="submit" onClick={this.handleShow}>New Evaluation</Button>
-            </Row>
-          </Col>
-        </Row>
+
         </div>
       </div>
     );

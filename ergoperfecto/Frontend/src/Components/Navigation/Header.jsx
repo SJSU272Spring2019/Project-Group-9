@@ -34,9 +34,8 @@ class Header extends Component {
       <Nav>
        <NavDropdown title="My Account" id="basic-nav-dropdown">
          <NavDropdown.Item href="/dashboard">
-           Dashboard <Badge variant="info">2</Badge>
+           Dashboard
          </NavDropdown.Item>
-         <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
          <NavDropdown.Divider />
          <NavDropdown.Item href="#" onClick={this.logout}>Logout</NavDropdown.Item>
          {/* <GoogleLogout className="googleButton"
