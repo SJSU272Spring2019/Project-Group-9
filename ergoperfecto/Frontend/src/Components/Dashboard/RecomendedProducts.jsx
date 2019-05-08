@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import {Redirect} from 'react-router';
 import VideoCard from '../Body/Cards/VideoCard'
 import {Row, Col, Tabs, Tab, Carousel} from 'react-bootstrap';
 
 import API from '../../api/API'
 import axios from 'axios'
+var search = require('youtube-search');
+var opts = {
+  maxResults: 10,
+  key: 'AIzaSyCHt0bzmXNaq4dhiXw8E_dqjOv-Rau9KBE',
+ 
 
+};
 class RecomendedProducts extends Component {
   constructor(props) {
     super(props);
-    this.handleSelect = this.handleSelect.bind(this);
+
 
      this.state = {
        index: 0,
        direction: null,
+       rows:[]
      };
+     this.handleSelect = this.handleSelect.bind(this);
+     this.populaterows=this.populaterows.bind(this);
    }
 
+ 
 
 
-  componentWillMount=()=>{
+  componentDidMount=()=>{
+ 
+
+ 
 
   }
-
+  populaterows(results){
+    this.setState({rows:results})
+    console.log(this.state.rows)
+  }
   handleSelect(selectedIndex, e) {
     this.setState({
       index: selectedIndex,
@@ -31,6 +47,26 @@ class RecomendedProducts extends Component {
   }
 
   render() {
+    var id=[],result,display=[],id1="",id2="",id3="",id4="",id5="";
+    search('neck office ergonomics ', opts, function(err, results) {
+      if(err) return console.log(err);
+     
+      console.log(results); 
+     result=results;
+     var i=0;
+      results.map(member=>
+        
+        id[i++]="https://www.youtube.com/embed/"+member.id
+      
+   
+        )
+        id.map(member=>  display.push(   <VideoCard title="Exercise 1" src={member}/>))
+      
+  })
+ console.log(id,"check")
+
+
+
     const { index, direction } = this.state;
     const image1 = require('../../products/chair1.jpg')
     const image2 = require('../../products/wayfair-homestar-height-adjustable-desk.jpg')
@@ -114,6 +150,10 @@ class RecomendedProducts extends Component {
              </Row>
           </Carousel.Item>
          </Carousel>
+        
+         
+       
+     
           </div>
         </Tab>
       </Tabs>
