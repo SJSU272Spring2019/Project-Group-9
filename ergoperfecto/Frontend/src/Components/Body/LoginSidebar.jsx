@@ -5,6 +5,7 @@ import AlertMessage from './AlertMessage'
 import API from '../../api/API'
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import "../../Styles/Navigation.css"
 
 class LoginSidebar extends Component {
     constructor(props) {
@@ -187,7 +188,7 @@ class LoginSidebar extends Component {
         <Button variant="success" type="submit" style={{width: '100%'}}>Login</Button>
         </Col>
         <Col md={12} lg={12}>
-        <GoogleLogin
+        <GoogleLogin className="googleButton"
     clientId="811696992821-kqv2bdca8lrnuvq6mqr5vp8lggvv5inr.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={this.responseGoogle}
