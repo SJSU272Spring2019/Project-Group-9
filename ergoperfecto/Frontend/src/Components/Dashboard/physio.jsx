@@ -277,7 +277,7 @@ class Physio extends Component {
                                 <span onClick={()=>this.removefromlist(item)}> <FontAwesomeIcon icon="minus" style={{color: '#af3838'}} /></span>
                               </Col>
                               <Col md={11} lg={11}>
-                                <Link to={"/singleitem/" + this.doRegex()}>
+                                <Link to={"/singleitem/" + item.replace(/ +/g, "")}>
                      <strong>{item}</strong>
                                 </Link>
                               </Col>

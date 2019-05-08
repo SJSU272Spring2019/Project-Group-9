@@ -15,7 +15,7 @@ class singleitem extends Component {
 
     }
     importAll=(r)=> {
-        
+
         let videos = require('../physioex/'+this.props.match.params.name+".json");
         let result = []
         for (let obj in videos) {
@@ -28,7 +28,7 @@ class singleitem extends Component {
         const values= Object.values(videos);
         this.setState({rows:values})
       }
- 
+
       render() {
           return (
               <div>
@@ -53,13 +53,13 @@ class singleitem extends Component {
               </Row>
             </Jumbotron>
             </Col>
-        
-            
+
+
           </Row>
         </Container>
                   </div>
           )
       }
   }
-  
+
   export default singleitem;

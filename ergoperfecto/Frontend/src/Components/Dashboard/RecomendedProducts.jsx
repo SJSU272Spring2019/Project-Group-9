@@ -109,6 +109,10 @@ class RecomendedProducts extends Component {
            </Carousel>
           </div>
         </Tab>
+
+
+        {/*  VIDEO TAB BELOW    */}
+
         <Tab eventKey="exercises" title="Exercises">
           <div className="recommendedContent">
           <Carousel activeIndex={index} direction={direction} onSelect={this.handleSelect}>
@@ -193,8 +197,8 @@ class RecomendedProducts extends Component {
          </Col>
          <Col sm={3} md={3} lg={3}></Col>
        </Row>
-    </Carousel.Item>
-    <Carousel.Item>
+      </Carousel.Item>
+      <Carousel.Item>
       <Row>
         <Col sm={3} md={3} lg={3}></Col>
         <Col sm={3} md={3} lg={3}>
@@ -202,31 +206,17 @@ class RecomendedProducts extends Component {
         </Col>
         <Col sm={3} md={3} lg={3}></Col>
       </Row>
-   </Carousel.Item>
-   <Carousel.Item>
-     <Row>
-       <Col sm={3} md={3} lg={3}></Col>
-       <Col sm={3} md={3} lg={3}>
-         <VideoCard title="Exercise 10" src="https://www.youtube.com/embed/AGkkicts6b0" />
-       </Col>
-       <Col sm={3} md={3} lg={3}></Col>
-     </Row>
-  </Carousel.Item>
+     </Carousel.Item>
+     <Carousel.Item>
+       <Row>
+         <Col sm={3} md={3} lg={3}></Col>
+         <Col sm={3} md={3} lg={3}>
+           <VideoCard title="Exercise 10" src="https://www.youtube.com/embed/AGkkicts6b0" />
+         </Col>
+         <Col sm={3} md={3} lg={3}></Col>
+       </Row>
+    </Carousel.Item>
          </Carousel>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           </div>
         </Tab>
       </Tabs>
