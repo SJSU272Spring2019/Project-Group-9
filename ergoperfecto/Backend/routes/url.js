@@ -59,9 +59,14 @@ module.exports = (router) => {
     /* evaluation */
 
     /* physio */
-    router.get('/exercises', physioController.getExercises)
-    router.post('/exercises',physioController.addExercise)
+    router.get('/exercises', verifyJWTToken,physioController.getExercises)
+    router.post('/exercises', verifyJWTToken,physioController.addExercise)
+    router.post('/deleteExercises',verifyJWTToken,physioController.deleteExercise)
     /* physio */
+
+    /* healthcheck */
+    router.get('/healthcheck',loginController.healthcheck)
+    /* healthcheck */
 
     return router;
 }
