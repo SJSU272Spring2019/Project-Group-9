@@ -8,7 +8,7 @@ let questionsGet = (user,msg,callback) => {
         // console.log("inside")
         Section.find().select({_id:0,"questions._id":0,"__v":0})
         .then((result) => {
-            callback(null,{"success":true,"data":result})
+            callback(null,{"suserIduccess":true,"data":result})
         }).catch((error) => {
             console.log("Error",error);
             callback({"success":false,"message":"Something went wrong! Please try again"},null)
@@ -42,6 +42,23 @@ let saveAnswers = (user,msg,callback) => {
     }
 }
 
+let getEvaluationForRecommendation = (user,msg,callback) => {
+    try {
+        let sectionIds = []
+        evaluationAnswers.find({userId:user.id}).select({answers:1})
+        .then((evaluationAnswerObjs) => {
+            callback(null,{"success":true},)
+        }).catch(error => {
+            console.log("Error",error);
+            callback({"success":false,"message":"Something went wrong! Please try again"},null)
+        })
+    }
+    catch(error){
+        console.log("Error",error);
+        callback({"success":false,"message":"Something went wrong! Please try again"},null)
+    }
+}
+
 function handle_request(data,callback){
 
     msg = data.msg
@@ -55,6 +72,9 @@ function handle_request(data,callback){
             break;
         case 'saveAnswers':
             saveAnswers(user,msg,callback);
+            break;
+        case 'getEvaluationForRecommendation' :
+            getEvaluationForRecommendation(user,msg,callback);
             break;
 	}
 

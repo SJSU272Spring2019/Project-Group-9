@@ -9,4 +9,8 @@ module.exports = {
     saveAnswers : (req,res) => {
         call_kafka(req, res, 'eval',{payload: req.body,type:"saveAnswers",user:req.user})
     },
+
+    getEvaluationForRecommendation : (req,res) => {
+        call_kafka(req, res, 'eval',{payload: req.body,type:"getEvaluationForRecommendation",user:req.user})
+    },
 }
