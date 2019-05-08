@@ -120,18 +120,18 @@ class Physio extends Component {
       }
 
       componentDidMount() {
-      this.setState({
-        filtered: this.props.items
-      });
-      var data={
-        username:"kavya.chennoju@sjsu.edu"
-    }
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
-    axios.post("http://localhost:3001/exercises",data,{headers: {
-      token: localStorage.getItem("token")
-    }})
-            .then(response => {
+
+        this.setState({
+          filtered: this.props.items
+        });
+        var data={
+          username:"kavya.chennoju@sjsu.edu"
+        }
+        axios.defaults.withCredentials = true;
+        //make a post request with the user data
+        axios.post("http://localhost:3001/getexercises",data)
+                .then(response => {
+
 
           console.log("Status Code : ",response.status);
           if(response.status === 200){
@@ -184,51 +184,25 @@ class Physio extends Component {
             filtered: newList
           });
       }
-          // Set the filtered state based on what our rules added to newList
-      this.setState({
-        filtered: newList
-      });
-    }
-    addtolist=(x)=>{
-      var newArray = this.state.addedlist.slice();
-      newArray.push(x);
-      console.log(newArray)
-      this.setState({addedlist:newArray})
-      var data={
-        username:"kavya.chennoju@sjsu.edu",
-        exercise:x
-    }
-    axios.defaults.withCredentials = true;
-        console.log("posting")
 
-    axios.post("http://localhost:3001/exercises",data,{headers: {
-      token: localStorage.getItem("token")
-    }})
-    .then(response => {
-     console.log(response.data,"errr")
-  })
-    .catch(err=>
-      console.log(err)
-      )
-      //
-      // addtolist=(x)=>{
-      //   var newArray = this.state.addedlist.slice();
-      //   newArray.push(x);
-      //   console.log(newArray)
-      //   this.setState({addedlist:newArray})
-      //   var data={
-      //     username:"kavya.chennoju@sjsu.edu",
-      //     exercise:x
-      //   }
-      //   axios.defaults.withCredentials = true;
-      //       console.log("posting")
-      //   axios.post("http://localhost:3001/addexercise",data)
-      //   .then(response => {
-      //    console.log(response.data,"errr")
-      //   }).catch(err=>
-      //     console.log(err)
-      //     )
-      // }
+      addtolist=(x)=>{
+        var newArray = this.state.addedlist.slice();
+        newArray.push(x);
+        console.log(newArray)
+        this.setState({addedlist:newArray})
+        var data={
+          username:"kavya.chennoju@sjsu.edu",
+          exercise:x
+        }
+        axios.defaults.withCredentials = true;
+            console.log("posting")
+        axios.post("http://localhost:3001/addexercise",data)
+        .then(response => {
+         console.log(response.data,"errr")
+        }).catch(err=>
+          console.log(err)
+          )
+      }
 
       removefromlist=(x)=>{
         var newArray = this.state.addedlist.slice();

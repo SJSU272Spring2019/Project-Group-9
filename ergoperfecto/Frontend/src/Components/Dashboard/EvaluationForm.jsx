@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Row, Col, Form, Button, Table, Modal, Badge} from 'react-bootstrap';
-import axios from 'axios'
 import Question from './Question.jsx';
 import API from '../../api/API'
 import axios from 'axios'
