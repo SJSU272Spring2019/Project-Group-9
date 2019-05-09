@@ -11,8 +11,14 @@
   "author": "Sowmya",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "bcrypt-nodejs": "0.0.3",
+    "faker": "^4.1.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.0",
     "kafka-node": "^3.0.1",
-    "mongoose": "^5.3.7"
+    "mongoose": "^5.3.7",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
   }
 }

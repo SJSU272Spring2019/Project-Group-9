@@ -1,0 +1,4 @@
+ergoperfecto/Backend/node_modules/*
+ergoperfecto/Frontend/node_modules/*
+ergoperfecto/Kafka-Backend/node_modules/*
+**/package-lock.json

@@ -1,0 +1,75 @@
+  #font {
+    background-color: white;
+    border: none;
+    color: black;
+    /*padding: 30px;*/
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    /*margin-left:50px;*/
+    align-items: center
+  }
+  #font.active{color: #fff;}
+
+  .pages {
+    width: 50%;
+    margin: 0 auto;
+  }
+  div.pages  ul {
+      width: 100%;
+     cursor:pointer;
+  }
+
+  div.pages  li{
+    width: 50px;
+  }
+
+  div.pages  a {
+    width: 100px;
+  }
+
+  div.pages  a:hovor {
+    width: 100px;
+    color: #fff;
+  }
+
+
+.responsiveCard {
+  width: 225px;
+  margin: 15px;
+  textAlign: center;
+  display: inline-block !important;
+}
+
+@media all and (min-width: 1281px) {
+  .responsiveCard {
+    width: 250px;
+    margin: 30px;
+  }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+  .responsiveCard {
+    width: 220px;
+    margin: 20px;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .responsiveCard {
+    width: 200px;
+    margin: 20px;
+  }
+
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .responsiveCard {
+    width: 400px;
+    margin: 18px;
+  }
+  #page {
+    margin-left: -170px;
+  }
+}

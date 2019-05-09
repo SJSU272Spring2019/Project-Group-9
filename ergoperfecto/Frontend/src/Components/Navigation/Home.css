@@ -1,0 +1,25 @@
+ .center {
+    margin: auto;
+    width: 50%;
+  margin-left: 500px;
+    padding: 10px;
+}
+
+
+.homePage {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+
+.timeList {
+  width: 100%;
+}
+
+.blueLink {
+  color: #107cd4;
+}
+
+.whiteLink {
+  color: #fff;
+}
